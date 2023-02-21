@@ -1,0 +1,32 @@
+.App {
+  background: linear-gradient(rgb(5, 5, 5),transparent);
+  background-color: #111215;
+}
+
+.App-header {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.Posts-Container{
+  width: 700px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.PostCard{
+  background: linear-gradient(transparent,rgb(80, 0, 0));
+}
+
+.LoginCard{
+  background: linear-gradient(transparent,rgb(80, 0, 0));
+}
+
+a{
+  color: white;
+}
