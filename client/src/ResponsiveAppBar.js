@@ -73,103 +73,106 @@ function ResponsiveAppBar({jwt, setJwt}) {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <CountertopsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SinkOverflow
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, '& .MuiPaper-root': {backgroundColor:'primary.background'} }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="secondary"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-                '& .MuiPaper-root': {backgroundColor:'primary.background'},
-                textDecoration: 'none'
-              }}
-            >
-              <Link style={{textDecoration: 'none'}} to={"/"}>
-                <MenuItem key="All questions">
-                  <Typography  textAlign="center">{"All questions"}</Typography>
-                </MenuItem>
-                </Link>
-                <MenuItem key="About" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{"About"}</Typography>
-                </MenuItem>
-            </Menu>
-          </Box>
-          <CountertopsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SinkOverflow
-          </Typography>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>{jwt? "Welcome, "+jwt_decode(jwt).username:
-            <>{loginOptions.map((option) => (
-              <Link key={option} to={"/"+option+".html"} style={{textDecoration: 'none'}}  >
-                <Button
-                  onClick={handleCloseLoginMenu}
-                  sx={{ my: 2, color: 'primary.text', display: 'block' }}
+        <Toolbar disableGutters >
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, '& .MuiPaper-root': {backgroundColor:'primary.background'} }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="secondary"
                 >
-                  {option}
-                </Button>
-              </Link>
-            ))}
-          </>}
-          </Box>
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                    '& .MuiPaper-root': {backgroundColor:'primary.background'},
+                    textDecoration: 'none'
+                  }}
+                >
+                  <Link style={{textDecoration: 'none'}} to={"/"}>
+                    <MenuItem key="All questions">
+                      <Typography sx={{fontSize: "0.8rem"}}  textAlign="center">{"All questions"}</Typography>
+                    </MenuItem>
+                    </Link>
+                    <MenuItem key="About" onClick={handleCloseNavMenu}>
+                      <Typography sx={{fontSize: "0.8rem"}} textAlign="center">{"About"}</Typography>
+                    </MenuItem>
+                </Menu>
+              </Box>
 
+            <CountertopsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize:"1.6rem" }} />
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  fontSize: "0.8rem",
+                  mr: 2,
+                  display: { xs: 'flex', md: 'none' },
+                  flexGrow: 1,
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  lineHeight: 0.8,
+                  letterSpacing: '.01rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                Sink<br></br>Overflow
+              </Typography>
+
+              <Box sx={{fontSize:"0.6rem", display: { xs: 'flex', md: 'none' } }}>{jwt? "Welcome, "+jwt_decode(jwt).username:
+                <>{loginOptions.map((option) => (
+                  <Link key={option} to={"/"+option+".html"} style={{textDecoration: 'none'}}  >
+                    <Button
+                      onClick={handleCloseLoginMenu}
+                      sx={{ my: 2,  color: 'primary.text', display: 'block', fontSize: "0.6rem" }}
+                    >
+                      {option}
+                    </Button>
+                  </Link>
+                ))}
+              </>}
+              </Box>
 
               {/* BELOW IS THE DESKTOP VERSION */}
 
+              <CountertopsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 , fontSize :"1.6rem"}} />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: 'none', md: 'flex' },
+                  fontFamily: 'monospace',
+                  fontSize: "1.2rem",
+                  fontWeight: 700,
+                  letterSpacing: '.1rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                SinkOverflow
+              </Typography>
 
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -177,19 +180,19 @@ function ResponsiveAppBar({jwt, setJwt}) {
               <Link key={page} to={"/"} style={{textDecoration: 'none'}}> 
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'primary.text', display: 'block'}}
+                    sx={{ my: 2, color: 'primary.text', display: 'block', fontSize: "1.0rem"}}
                   >
                     {page}
                   </Button>
               </Link>
             ))}
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>{jwt? "Welcome, "+jwt_decode(jwt).username:
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, fontSize: "0.9rem", }}>{jwt? "Welcome, "+jwt_decode(jwt).username:
             <>{loginOptions.map((option) => (
               <Link key={option} to={"/"+option+".html"} style={{textDecoration: 'none'}}  >
                 <Button
                   onClick={handleCloseLoginMenu}
-                  sx={{ my: 2, color: 'primary.text', display: 'block' }}
+                  sx={{ my: 2, color: 'primary.text', display: 'block', fontSize: "0.9rem" }}
                 >
                   {option}
                 </Button>
@@ -218,10 +221,10 @@ function ResponsiveAppBar({jwt, setJwt}) {
               open={Boolean(anchorElUser)}
             >
                 <MenuItem key="Profile" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>handleProfile(jwt)}>{"Profile"}</Typography>
+                  <Typography textAlign="center" onClick={()=>handleProfile(jwt)} sx={{fontSize: "0.6rem"}}>{"Profile"}</Typography>
                 </MenuItem>
                 <MenuItem key="Logout" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>handleLogout(jwt, setJwt)}>{"Logout"}</Typography>
+                  <Typography textAlign="center" onClick={()=>handleLogout(jwt, setJwt)} sx={{fontSize: "0.6rem"}}>{"Logout"}</Typography>
                 </MenuItem>
             </Menu> </> :""}
           </Box>

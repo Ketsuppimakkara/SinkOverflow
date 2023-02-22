@@ -12,6 +12,7 @@ import LoginCard from './LoginCard';
 import RegisterCard from './RegisterCard';
 import Comments from './Comments.js'
 import AddPost from './AddPost';
+import AddComment from './AddComment';
 
 
 function App() {

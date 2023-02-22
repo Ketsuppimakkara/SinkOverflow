@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
-import { Link } from '@mui/material';
 import hoursAgo from './hoursAgo.js';
 
 
@@ -18,7 +16,7 @@ function CommentCard (props){
       </Typography>
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
-          <Typography sx={{mr:1, fontSize: 14, textAlign: "right"}}  color="text.secondary">
+          <Typography sx={{mr:1, fontSize: "0.7rem", textAlign: "right"}}  color="text.secondary">
           Posted by {props.comment.author} {hoursAgo(props.comment.created_at)}
           </Typography>
         </Grid>

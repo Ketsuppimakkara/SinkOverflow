@@ -43,6 +43,6 @@ function Post(jwt) {
 },[])
 
 
-return(<><div className='Posts-Container'>{data} </div> <div><AddComment jwt={jwt} postId={id}/></div></>);
+return(<><div className='Posts-Container'>{data} </div> <><AddComment jwt={jwt} postId={id}/></></>);
 };
 export default Post;

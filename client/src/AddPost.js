@@ -19,19 +19,20 @@ function AddPost(jwt) {
   const navigate = useNavigate();
 
   if(jwt.jwt === null){                //User is not allowed to go to create post page if they are logged in already. window.history.back just boots them back to where they came from
+    alert("You must be logged in to create posts!")
     window.history.back()
   }
   else{
   return(
-    <div style={{width:450,}}>
-      <Card className='LoginCard' sx={{ minWidth: 275, bgcolor: 'primary.background'}}>
+    <div>
+      <Card className='NewPostCard' sx={{ bgcolor: 'primary.background'}}>
         <CardContent sx={{ml:6, mr:6}}>
-          <Typography sx={{ fontSize: 24 }} color="text.secondary" gutterBottom>
+          <Typography sx={{ fontSize: "1.2rem" }} color="text.secondary" gutterBottom>
             Add a new post
           </Typography>
           <Stack spacing={2}>
             <TextField id="Title" label="Title" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setTitle(evt.target.value)}}/>
-            <TextField id="Content" label="Text" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setContent(evt.target.value)}}/>
+            <TextField id="Content" color="secondary" sx={{textarea:{resize:"both"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>

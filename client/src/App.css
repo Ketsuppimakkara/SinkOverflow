@@ -1,26 +1,58 @@
+html{
+
+  font-size: 20px;
+
+}
+
 .App {
   background: linear-gradient(rgb(5, 5, 5),transparent);
   background-color: #111215;
 }
 
-.App-header {
+.MuiInputBase-input{
+  font-size: 500px;
+}
 
+.App-header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: top;
+  margin-top: 1vw;
   color: white;
 }
 
-.Posts-Container{
-  width: 700px;
+.AddComment {
+  display: flex;
+  align-items: center;
+  width: 1000px;
   max-width: 80%;
-  text-align: center;
+}
+
+.Posts-Container{
+  width: 1000px;
+  max-width: 80%;
 }
 
 .PostCard{
   background: linear-gradient(transparent,rgb(80, 0, 0));
+}
+
+.NewPostCard{
+  background: linear-gradient(transparent,rgb(80, 0, 0));
+  width: 1200px;
+  max-width: 80vw;
+  height: 600px;
+  max-height: 80vw;
+}
+
+.NewCommentCard{
+  background: linear-gradient(transparent,rgb(80, 0, 0));
+  width: 1200px;
+  max-width: 80vw;
+  height: 600px;
+  max-height: 80vw;
 }
 
 .LoginCard{

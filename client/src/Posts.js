@@ -7,7 +7,14 @@ import BasicPagination from './BasicPagination.js';
 
 
 
-function Posts() {
+function Posts(props) {
+  let buttonMode = "contained"
+  let buttonColor = "primary"
+  if(!props.jwt){
+
+    buttonMode = "outlined"
+    buttonColor = "secondary"
+  }
 
   const [data, setData] = useState(null);
   const [currentPage] = useState(1);
@@ -52,6 +59,6 @@ function Posts() {
     mounted = false
   }
 },[])
-return(<div className='Posts-Container'>{data} <BasicPagination postsPerPage = {postsPerPage} allData = {!allData ? {}: allData} onChange={handleChange}/> <Button href='/post/new.html' variant='contained'>Add a Post</Button> </div>);
+return(<div className='Posts-Container'>{data} <BasicPagination postsPerPage = {postsPerPage} allData = {!allData ? {}: allData} onChange={handleChange}/> <Button href='/post/new.html' color={buttonColor} variant={buttonMode} sx={{ my: 2, fontSize:"0.7rem"}}>Add a Post</Button> </div>);
 };
 export default Posts;
