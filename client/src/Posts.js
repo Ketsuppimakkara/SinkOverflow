@@ -27,7 +27,7 @@ function Posts(props) {
     indexOfFirstRecord = indexOfLastRecord - postsPerPage;
     const posts = allData.slice(indexOfFirstRecord,indexOfLastRecord).map(post=>{
       return(
-          <PostCard post = {post} commentLink={true} key={post.postId}/>
+          <PostCard post = {post} jwt={props.jwt} commentLink={true} key={post.postId}/>
       )})
     setData(posts)
 
@@ -44,7 +44,7 @@ function Posts(props) {
         setAllData(data.data);
         const posts = data.data.slice(indexOfFirstRecord,indexOfLastRecord).map(post=>{
           return(
-              <PostCard post = {post} commentLink={true} key={post.postId}/>
+              <PostCard post = {post} jwt={props.jwt} commentLink={true} key={post.postId}/>
           )
           })
           if(mounted === true){

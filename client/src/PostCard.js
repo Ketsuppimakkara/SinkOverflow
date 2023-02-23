@@ -3,24 +3,112 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
+import {Grid, IconButton, Stack } from '@mui/material';
+import {ArrowUpward, ArrowDownward} from '@mui/icons-material'
 import { Link } from '@mui/material';
 import hoursAgo from './hoursAgo.js';
-import Truncate from 'react-truncate';
+import {Box} from '@mui/material'
+import { useState } from 'react';
+import jwt_decode from 'jwt-decode';
+import getScore from './getScore.js'
 
+function handleUpvote(postId, jwt, setScore){
+  if(!jwt){
+    alert("You need to be logged in to vote!")
+    return
+  }
+  const postUserId= jwt_decode(jwt).userId.toString()+postId.toString()
+  fetch("http://localhost:3001/api/postVote",{
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+jwt
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({'postId':postId,"userId":jwt_decode(jwt).userId,'postUserId':postUserId, voteScore:"+1"})})
+    .then((response)=>response.json())
+    .then((data)=>{
+          if(!data.error){
+            getScore(postId).then((response)=>{
+              setScore(response.data[0].voteScore);
+            })
+          }
+          else{
+            console.log(data.error);
+          }
+      })
+  return
+}
 
+function handleDownvote(postId, jwt, setScore){
+
+  if(!jwt){
+    alert("You need to be logged in to vote!")
+    return
+  }
+  const postUserId= jwt_decode(jwt).userId.toString()+postId.toString()
+  fetch("http://localhost:3001/api/postVote",{
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+jwt
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({'postId':postId,"userId":jwt_decode(jwt).userId,'postUserId':postUserId, voteScore:"-1"})})
+    .then((response)=>response.json())
+    .then((data)=>{
+          if(!data.error){
+            getScore(postId).then((response)=>{
+              setScore(response.data[0].voteScore);
+            })
+          }
+          else{
+            console.log(data.error);
+          }
+      })
+  return
+}
 
 
 function PostCard (props){
+  const [score,setScore] = useState(0)
 
+  getScore(props.post.postId).then((response)=>{
+    if(response.data[0].voteScore === null){
+      setScore(0)
+    }else{
+      setScore(response.data[0].voteScore);
+    }
+
+  })
   if(props.commentLink === true){
-    console.log(props.post.content)
     if(props.post.content.length > 300){
       props.post.content = props.post.content.substring(0,300)+"..."
     }
     return(
       <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>
-              <CardContent sx={{margin: 1, mt: 1}}>
+        <Grid container alignItems={'center'}>
+          <Grid item xs={1} md={1}>
+            <Stack direction="column" spacing={2}>
+                <Box textAlign={'center'} onClick={()=>{handleUpvote(props.post.postId,props.jwt,setScore)}} >
+                  <ArrowUpward/>
+                </Box> 
+                <Typography textAlign={'center'}>{score}</Typography> 
+                <Box textAlign={'center'} onClick={()=>{handleDownvote(props.post.postId,props.jwt,setScore)}} >
+                  <ArrowDownward/>
+                </Box> 
+            </Stack>
+          </Grid>
+          <Grid item xs={11} md={11}>
+          <CardContent sx={{margin: 1, mt: 1}}>
                 <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
                   <Typography variant={'h1'} sx={{ fontSize: "1.2rem" ,textAlign: "left"}} color="text.primary">
                     {props.post.title}
@@ -44,7 +132,9 @@ function PostCard (props){
                 </Grid>
                 </div>
               </CardContent>
-            </Card>
+          </Grid>
+        </Grid>
+      </Card>
   )
   }
   else{

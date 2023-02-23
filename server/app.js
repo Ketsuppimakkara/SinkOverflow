@@ -10,6 +10,7 @@ var loginRouter = require('./routes/api/login');
 var registerRouter = require('./routes/api/register');
 var postsRouter = require('./routes/api/posts');
 var commentsRouter = require('./routes/api/comments');
+var postVoteRouter = require('./routes/api/postVote')
 
 
 var db = require('./database.js');
@@ -28,6 +29,7 @@ app.use('/api/login', loginRouter);
 app.use('/api/register', registerRouter);
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
+app.use('/api/postVote', postVoteRouter);
 app.use('/public/images', express.static('./public/images'));       //This route handles profile images
 
 module.exports = app;

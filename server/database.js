@@ -30,7 +30,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                 stmt.finalize()
                 
                 //Setup a post list
-                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(userId) REFERENCES User(userId))',(err)=>{
+                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, postScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(userId) REFERENCES User(userId))',(err)=>{
                     if(err){
                         console.log(err);
                     }
@@ -55,8 +55,30 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                                 const stmt = db.prepare('INSERT INTO Comment (postId, content, userId) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
                                 stmt.run('1',"You should look into https://www.spacejam.com/1996/, see if you get some inspiration","1");
                                 stmt.run('1',"Thanks, this looks great!","2");
+
+                                stmt.finalize()
+
+                                db.run('CREATE TABLE PostVote (postVoteId INTEGER PRIMARY KEY, postId INTEGER NOT NULL, userId INTEGER NOT NULL, postUserId TEXT NOT NULL UNIQUE, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(postId) REFERENCES Post(PostId), FOREIGN KEY(userId) REFERENCES User(userId) CHECK (-2<voteScore AND voteScore< 2))',(err)=>{
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                    else{
+                                        //Table created, adding dummy data:
+                                        const stmt = db.prepare('INSERT INTO postVote (postId, userId, postUserId, voteScore) VALUES (?,?,?,?)')         //Prepared statement protects against SQL Injection attacks
+                                        stmt.run('1',"2","12","1");
+                                        stmt.run('1',"1","11","-1");
+                                        stmt.run('2',"1","21","1");
+                                        stmt.run('2',"2","22","1");
+        
+                                        stmt.finalize()
+                                    }
+                                })
                             }
                         })
+
+                        
+
+
                     console.log("Database initialized with dummy data!");
                     }
                 })
