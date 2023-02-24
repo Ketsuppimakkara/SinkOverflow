@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {Grid, IconButton, Stack } from '@mui/material';
+import {Grid, Stack } from '@mui/material';
 import {ArrowUpward, ArrowDownward} from '@mui/icons-material'
 import { Link } from '@mui/material';
 import hoursAgo from './hoursAgo.js';
@@ -11,6 +11,7 @@ import {Box} from '@mui/material'
 import { useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import getScore from './getScore.js'
+
 
 function handleUpvote(postId, jwt, setScore){
   if(!jwt){
@@ -77,18 +78,9 @@ function handleDownvote(postId, jwt, setScore){
   return
 }
 
-
 function PostCard (props){
-  const [score,setScore] = useState(0)
+  const [score,setScore] = useState(props.score)
 
-  getScore(props.post.postId).then((response)=>{
-    if(response.data[0].voteScore === null){
-      setScore(0)
-    }else{
-      setScore(response.data[0].voteScore);
-    }
-
-  })
   if(props.commentLink === true){
     if(props.post.content.length > 300){
       props.post.content = props.post.content.substring(0,300)+"..."

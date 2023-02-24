@@ -12,9 +12,13 @@ router.get('/', function(req, res, next) {
   let query = ""
   let params = []
 
-  if(!req.query.userId && !req.query.postId){
-    res.send(400).json({error:"Invalid query"})
-    return
+  if(req.query.min && req.query.max){
+    query = "SELECT postId, sum(voteScore) AS voteScore from 'Postvote' WHERE postId BETWEEN (?) AND (?) GROUP BY postId"
+    params = [req.query.min,req.query.max]
+  }
+  else if(!req.query.userId && !req.query.postId){
+    query = "SELECT postId, sum(voteScore) AS voteScore from 'PostVote' GROUP BY postId"
+    params = [req.query.postId]
   }
   else if(req.query.postId){
     query = "SELECT sum(voteScore) AS voteScore from 'PostVote' WHERE PostId =  (?)"
@@ -48,27 +52,37 @@ router.get('/', function(req, res, next) {
 //Post route for adding new vote
 router.post('/', validateJWTToken,function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
-        console.log(req.body)
         let query = ""
         let params = []
         if(req.body.voteScore === "-1"){
-          query = 'INSERT INTO PostVote (postId,userId,postUserId, voteScore) values ((?),(?),(?),-1) ON CONFLICT (postUserId) DO UPDATE SET voteScore=(SELECT IIF(((SELECT voteScore From PostVote WHERE postUserId = (?))<0),0,-1))'
-          params = [req.body.postId,req.body.userId,(req.body.postId.toString()+req.body.userId.toString()),(req.body.postId.toString()+req.body.userId.toString())]
+          query1 = 'INSERT INTO PostVote (postId,userId,voteScore) values ((?),(?),-1) ON CONFLICT (postUserId) DO UPDATE SET voteScore=(SELECT IIF(((SELECT voteScore From PostVote WHERE postUserId = (?)||(?))<0),0,-1));'
+          params1 = [req.body.postId,req.body.userId,req.body.postId,req.body.userId]
+          query2 = 'UPDATE post SET voteScore = (SELECT sum(voteScore) FROM postVote WHERE postId =(?)) WHERE postId = (?); '
+          params2 = [req.body.postId,req.body.postId]
         }
         else if(req.body.voteScore === "+1"){
-          query = 'INSERT INTO PostVote (postId,userId,postUserId, voteScore) values ((?),(?),(?),+1) ON CONFLICT (postUserId) DO UPDATE SET voteScore=(SELECT IIF(((SELECT voteScore From PostVote WHERE postUserId = (?))>0),0,+1))'
-          params = [req.body.postId,req.body.userId,(req.body.postId.toString()+req.body.userId.toString()),(req.body.postId.toString()+req.body.userId.toString())]
+          query1 = 'INSERT INTO PostVote (postId,userId,voteScore) values ((?),(?),+1) ON CONFLICT (postUserId) DO UPDATE SET voteScore=(SELECT IIF(((SELECT voteScore From PostVote WHERE postUserId = (?)||(?))>0),0,+1));'
+          params1 = [req.body.postId,req.body.userId,req.body.postId,req.body.userId]
+          query2 = 'UPDATE post SET voteScore = (SELECT sum(voteScore) FROM postVote WHERE postId =(?)) WHERE postId = (?); '
+          params2 = [req.body.postId,req.body.postId]
         }
-        db.run(query,params,(err)=>{
+        db.run(query1,params1,(err)=>{
           if(err){
             res.status(400).json({error:err.message});
           }
           else{
-            res.status(200).json({message:"success"});
-          }
+            db.run(query2,params2,(err)=>{
+              if(err){
+                res.status(400).json({error:err.message});
+              }
+              else{
+                res.status(200).json({message:"success"});
+              }
         })
     }
-  );
+  }
+  )}
+);
 
 
 

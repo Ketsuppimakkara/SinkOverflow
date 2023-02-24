@@ -30,16 +30,16 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                 stmt.finalize()
                 
                 //Setup a post list
-                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, postScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(userId) REFERENCES User(userId))',(err)=>{
+                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(userId) REFERENCES User(userId))',(err)=>{
                     if(err){
                         console.log(err);
                     }
                     else{
                         //Table created, adding dummy data:
-                        const stmt = db.prepare('INSERT INTO Post (title, content, userId) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
+                        const stmt = db.prepare('INSERT INTO Post (title, content, userId, voteScore) VALUES (?,?,?,?)')         //Prepared statement protects against SQL Injection attacks
         
-                        stmt.run('How do i create a <blink> tag?',"I found this cool tag but it doesn't work. What's up with that?","2");
-                        stmt.run('Ask your code questions here',"Somebody will surely help you :)","1");
+                        stmt.run('How do i create a <blink> tag?',"I found this cool tag but it doesn't work. What's up with that?",2,0);
+                        stmt.run('Ask your code questions here',"Somebody will surely help you :)","1","2");
                         
                         stmt.finalize()
 
@@ -58,17 +58,17 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
 
                                 stmt.finalize()
 
-                                db.run('CREATE TABLE PostVote (postVoteId INTEGER PRIMARY KEY, postId INTEGER NOT NULL, userId INTEGER NOT NULL, postUserId TEXT NOT NULL UNIQUE, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(postId) REFERENCES Post(PostId), FOREIGN KEY(userId) REFERENCES User(userId) CHECK (-2<voteScore AND voteScore< 2))',(err)=>{
+                                db.run('CREATE TABLE PostVote (postVoteId INTEGER PRIMARY KEY, postId INTEGER NOT NULL, userId INTEGER NOT NULL, postUserId TEXT GENERATED ALWAYS AS (CAST(postId as text)||CAST(userId as text)) UNIQUE, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(postId) REFERENCES Post(PostId), FOREIGN KEY(userId) REFERENCES User(userId) CHECK (-2<voteScore AND voteScore< 2))',(err)=>{
                                     if(err){
                                         console.log(err);
                                     }
                                     else{
                                         //Table created, adding dummy data:
-                                        const stmt = db.prepare('INSERT INTO postVote (postId, userId, postUserId, voteScore) VALUES (?,?,?,?)')         //Prepared statement protects against SQL Injection attacks
-                                        stmt.run('1',"2","12","1");
-                                        stmt.run('1',"1","11","-1");
-                                        stmt.run('2',"1","21","1");
-                                        stmt.run('2',"2","22","1");
+                                        const stmt = db.prepare('INSERT INTO postVote (postId, userId, voteScore) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
+                                        stmt.run('1',"2","1");
+                                        stmt.run('1',"1","-1");
+                                        stmt.run('2',"1","1");
+                                        stmt.run('2',"2","1");
         
                                         stmt.finalize()
                                     }

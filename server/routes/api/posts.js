@@ -13,15 +13,15 @@ router.get('/', function(req, res, next) {
   let params = []
 
   if(!req.query.userId && !req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.created_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
     params = []
   }
   else if(req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.created_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
     params = [req.query.postId]
   }
   else if(req.query.userId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.created_at FROM Post, User WHERE User.userId = Post.userId AND userId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND userId = (?)"
     params = [req.query.userId]
   }
 
@@ -48,7 +48,6 @@ router.get('/', function(req, res, next) {
 //Post route for adding new post
 router.post('/', validateJWTToken,function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
-        console.log(req.body)
         const query = 'INSERT INTO "Post" (title,content,userId) VALUES (?,?,?)'
         const params = [req.body.title,req.body.content,req.body.userId]
         db.run(query,params,(err)=>{
