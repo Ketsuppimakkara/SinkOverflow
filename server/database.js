@@ -1,7 +1,12 @@
+//This file generates a  SQLite database. If the tables already exist, the commands won't get updated so make sure to delete "db.sqlite" file if you make any changes here.
+//Some dummy data also gets added when generating the database.
+
 const sqlite3 = require('sqlite3').verbose();
-const fs = require('fs');
 
 const DBSOURCE = "db.sqlite"
+
+
+
 
 const db = new sqlite3.Database(DBSOURCE, (err) =>{
     if(err) {

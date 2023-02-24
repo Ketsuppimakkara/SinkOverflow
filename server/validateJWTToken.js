@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 
 
-//Uses JWT to verify a token. Token gets passed in request "authorization" header with a bearer token.
+//Middleware that uses JWT to verify a token. Token gets passed in request "authorization" header with a bearer token.
+//The secret is in the .env file, make sure you have set a secret there.
+
 module.exports = function(req,res,next) {
     const authHeader = req.headers["authorization"];
     if(authHeader){

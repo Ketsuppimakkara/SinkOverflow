@@ -5,9 +5,14 @@ var bcrypt = require('bcryptjs');
 var jwt = require ('jsonwebtoken')
 var db = require('../../database.js');
 
+/*Post route for handling login. 
+Body must include email and password.
 
+Password gets compared to encrypted value in database.
+Email and username must match.
+Returns a JWT token on succesful login for authorization.
+*/
 router.post('/', function(req, res, next) {
-  console.log(req.body)
   res.header('Access-Control-Allow-Origin',"http://localhost:3000")       //Set header to allow react to access cross-origin resources
   const query = 'SELECT email,password,username,userId FROM "User" WHERE email = ?'      //Parametrized query to protect from SQL injections
   const params = [req.body.email]

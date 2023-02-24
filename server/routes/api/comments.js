@@ -4,7 +4,12 @@ var router = express.Router();
 var db = require('../../database.js');
 var validateJWTToken = require('../../validateJWTToken')
 
-/* GET post's comments by posts' id listing. */
+/* GET post's comments by posts' id listing. 
+Takes url queries:
+?postId=4   - Returns comments from post with id of 4
+?userId=2   - Returns comments made by user with id of 2
+no query    - Returns all comments from all posts
+*/
 router.get('/', function(req, res, next) {
 
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
@@ -12,7 +17,7 @@ router.get('/', function(req, res, next) {
   let params = []
 
   if(!req.query.userId && !req.query.postId){
-    query = "SELECT * FROM Post"
+    query = "SELECT * FROM Comment"
     params = []
   }
   else{                   
@@ -63,7 +68,9 @@ router.get('/', function(req, res, next) {
 });
 
 
-//Post route for adding new post
+/*Post route for adding new comment 
+Body must include postId, userId, and content 
+*/
 router.post('/',validateJWTToken, function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
 

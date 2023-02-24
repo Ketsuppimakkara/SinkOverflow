@@ -5,7 +5,11 @@ var validateJWTToken = require('../../validateJWTToken')
 var db = require('../../database.js');
 
 
-
+/*Get all posts. Takes url queries:
+?userId=2   - returns posts made by user with id 2
+?postId=3   - returns post with id 3
+no query    - returns all posts
+*/
 router.get('/', function(req, res, next) {
 
   res.header('Access-Control-Allow-Origin',"http://localhost:3000")       //Set header to allow react to access cross-origin resources
@@ -45,7 +49,9 @@ router.get('/', function(req, res, next) {
 });
 
 
-//Post route for adding new post
+/*Post route for adding new post
+Body must include title, content and userId
+*/
 router.post('/', validateJWTToken,function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
         const query = 'INSERT INTO "Post" (title,content,userId) VALUES (?,?,?)'
