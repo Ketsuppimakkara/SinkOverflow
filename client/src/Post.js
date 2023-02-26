@@ -15,10 +15,10 @@ function Post(jwt) {
 
   useEffect(()=>{
     async function getPost(){
-      fetch("http://localhost:3001/api/posts?postId="+id)
+      fetch("/api/posts?postId="+id)
       .then((response) => response.json())
       .then(postData =>{
-        fetch("http://localhost:3001/api/comments?postId="+id)
+        fetch("/api/comments?postId="+id)
         .then((commentResponse) => commentResponse.json())
         .then(commentData =>{
           postData.comments = commentData

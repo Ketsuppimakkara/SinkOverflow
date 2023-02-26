@@ -202,7 +202,7 @@ function ResponsiveAppBar({jwt, setJwt}) {
           </Box>
           <Box sx={{ flexGrow: 0 }}>{jwt? <><Tooltip title="Open settings">                                       
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Longnose dog" src="http://localhost:3001/public/images/profile.png" />
+                <Avatar alt="Longnose dog" src="/public/images/profile.png" />
               </IconButton>
             </Tooltip>
             <Menu

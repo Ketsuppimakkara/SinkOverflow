@@ -39,7 +39,7 @@ function AddPost(jwt) {
           <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
           <Button color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{
 
-            fetch("http://localhost:3001/api/posts",{
+            fetch("/api/posts",{
               method: 'POST',
               mode: 'cors',
               cache: 'no-cache',

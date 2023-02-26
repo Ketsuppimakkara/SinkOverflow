@@ -14,7 +14,7 @@ function Posts(jwt) {
   
   useEffect(()=>{
     async function getComments(){
-      fetch("http://localhost:3001/api/comments?postId="+id)
+      fetch("/api/comments?postId="+id)
       .then((response) => response.json())
       .then(data =>{
         const comments = data.data.map(comment=>{
