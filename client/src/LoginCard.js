@@ -27,7 +27,7 @@ function LoginCard({setJwt, setUser, jwt}) {
   else{
   return(
     <div style={{width:650, maxWidth:"80%"}}>
-      <Card className='LoginCard' sx={{ minWidth: 275, bgcolor: 'primary.background'}}>
+      <Card className='LoginCard' sx={{mt:4, minWidth: 275, bgcolor: 'primary.background'}}>
         <CardContent sx={{ml:6, mr:6}}>
           <Typography sx={{ fontSize: "1.2rem" }} color="text.secondary" gutterBottom>
             Login

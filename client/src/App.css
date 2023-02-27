@@ -62,6 +62,10 @@ html{
 
 }
 
+.MuiInputLabel-root {
+  font-size: 14px !important;
+}
+
 a{
   color: white;
 }

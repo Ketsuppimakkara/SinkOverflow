@@ -25,20 +25,20 @@ function RegisterCard({setJwt, jwt}) {
   else{
   return(
     <div style={{width:650, maxWidth:"80%"}}>
-      <Card className='LoginCard' sx={{ minWidth: 275, bgcolor: 'primary.background'}}>
-        <CardContent sx={{ml:6, mr:6}}>
-          <Typography sx={{ fontSize: "1.2rem" }} color="text.secondary" gutterBottom>
+      <Card className='LoginCard' sx={{mt:4, minWidth: 275, bgcolor: 'primary.background'}}>
+        <CardContent sx={{mx:{xs:1,md:6}}}>
+          <Typography sx={{ fontSize: {xs:"1rem", md:"1.4rem"}}} color="text.secondary" gutterBottom>
             Register
           </Typography>
           <Stack spacing={2}>
-            <TextField id="username" label="Username" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} inputProps={{maxLength: 20}} onChange={(evt) => {setUsername(evt.target.value)}}/>
-            <TextField id="email" label="Email" variant="outlined" type={'email'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setEmail(evt.target.value)}}/>
-            <TextField id="password" label="Password" variant="outlined" type={'password'} color='secondary' sx={{input:{background:'#450101'}}} helperText="*At least 8 upper- and lowercase characters, including one number and one symbol required" onChange={(evt) => {setPassword(evt.target.value)}}/>
+            <TextField id="username" label="Username" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101', height:"20px"}}} inputProps={{maxLength: 20}} onChange={(evt) => {setUsername(evt.target.value)}}/>
+            <TextField id="email" label="Email" variant="outlined" type={'email'} color='secondary' sx={{input:{background:'#450101', height:"20px"}}} onChange={(evt) => {setEmail(evt.target.value)}}/>
+            <TextField id="password" label="Password" variant="outlined" type={'password'} color='secondary' sx={{input:{background:'#450101', height:"20px"}}} helperText="*At least 8 upper- and lowercase characters, including one number and one symbol required" onChange={(evt) => {setPassword(evt.target.value)}}/>
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>
           <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
-          <Button color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{
+          <Button sx={{size:{xs:"small",md:"large"},fontSize:{xs:"0.6rem",md:"0.8rem"}}} color='secondary' variant='outlined' style={{marginLeft: 'auto'}} onClick={()=>{
 
             fetch("/api/register",{
               method: 'POST',
