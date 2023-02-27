@@ -28,11 +28,11 @@ function AddComment(props) {
   return(
     <div className='AddComment'>
       <Card className='NewCommentCard' sx={{bgcolor: 'primary.background'}}>
-        <CardContent sx={{ml:6, mr:6}}>
-          <Typography sx={{ fontSize: "1.0rem" }} color="text.secondary" gutterBottom>
+        <CardContent sx={{mx:{xs: 1,md:6}}}>
+          <Typography sx={{ fontSize: "0.8rem" }} color="text.secondary" gutterBottom>
             Reply with a comment
           </Typography>
-            <TextField id="Content" fullWidth color="secondary" sx={{textarea:{resize:"vertical"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
+            <TextField id="Content" fullWidth inputProps={{style:{height:"180px", fontSize:"0.8rem"}}} color="secondary" sx={{textarea:{resize:"vertical"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
         </CardContent>
         <CardActions style={{display:"flex"}}>
           <Grid container>
