@@ -22,22 +22,23 @@ function AddPost(jwt) {
     alert("You must be logged in to create posts!")
     window.history.back()
   }
+
   else{
   return(
     <div>
       <Card className='NewPostCard' sx={{ bgcolor: 'primary.background'}}>
-        <CardContent sx={{ml:6, mr:6}}>
-          <Typography sx={{ fontSize: "1.2rem" }} color="text.secondary" gutterBottom>
+        <CardContent sx={{mx:{xs: 1,md:6}}}>
+          <Typography sx={{fontSize:{xs: "0.8rem", md: "1.2rem"}}} color="text.secondary" gutterBottom>
             Add a new post
           </Typography>
           <Stack spacing={2}>
-            <TextField id="Title" label="Title" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setTitle(evt.target.value)}}/>
-            <TextField id="Content" color="secondary" sx={{textarea:{resize:"both"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
+            <TextField id="Title" label="Title" inputProps={{style:{fontSize:"0.8rem"}}} variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setTitle(evt.target.value)}}/>
+            <TextField id="Content" label="Content" color="secondary" inputProps={{style:{height:"250px", fontSize:"0.8rem"}}} sx={[{textarea:{resize:"vertical"}, backgroundColor:"#450101"}]} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>
           <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
-          <Button color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{
+          <Button sx={[{size:{xs: "small",md:"large"}},{fontSize: {xs: "0.6rem", md: "1rem"}},{m:{xs:1,md:2}}]} color='secondary' variant='outlined' onClick={()=>{
 
             fetch("http://localhost:3001/api/posts",{
               method: 'POST',

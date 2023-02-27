@@ -14,7 +14,7 @@ import Comments from './Comments.js'
 import AddPost from './AddPost';
 import AddComment from './AddComment';
 
-
+// On the lowest level we handle JWT authentication, the basic color theme and routing.
 function App() {
 
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
@@ -61,7 +61,7 @@ function App() {
   }
 },[])
 
-
+//Router paths below. 
   return (
     <Router>
       <div className="App">

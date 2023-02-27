@@ -28,7 +28,7 @@ function Posts(props) {
     indexOfFirstRecord = indexOfLastRecord - postsPerPage;
     const posts = allData.slice(indexOfFirstRecord,indexOfLastRecord).map(post=>{
       return(
-          <PostCard post = {post} score={post.score} jwt={props.jwt} commentLink={true} key={post.postId}/>
+          <PostCard post = {post} score={post.voteScore} jwt={props.jwt} commentLink={true} key={post.postId}/>
       )})
     setData(posts)
 
@@ -42,7 +42,6 @@ function Posts(props) {
       fetch("http://localhost:3001/api/posts")
         .then((response) => response.json())
         .then(data =>{
-          console.log(data.data)
           setAllData(data.data);
           const posts = data.data.slice(indexOfFirstRecord,indexOfLastRecord).map(post=>{
             return(

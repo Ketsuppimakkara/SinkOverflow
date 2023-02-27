@@ -36,6 +36,7 @@ function handleUpvote(postId, jwt, setScore){
           if(!data.error){
             getScore(postId).then((response)=>{
               setScore(response.data[0].voteScore);
+              
             })
           }
           else{

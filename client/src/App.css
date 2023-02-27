@@ -43,8 +43,7 @@ html{
   background: linear-gradient(transparent,rgb(80, 0, 0));
   width: 1200px;
   max-width: 80vw;
-  height: 600px;
-  max-height: 80vw;
+  max-height: 90vh;
 }
 
 .NewCommentCard{
