@@ -16,6 +16,7 @@ import RegisterCard from './RegisterCard';
 import Comments from './Comments.js'
 import AddPost from './AddPost';
 import AddComment from './AddComment';
+import EditPost from './EditPost.js'
 
 // On the lowest level we handle JWT authentication, the basic color theme and routing.
 function App() {
@@ -115,6 +116,15 @@ function App() {
             </div>
             <header className="App-header">
                 <AddPost jwt = {jwt}/>
+            </header>
+        </>}/>
+
+        <Route path='/post/:id/edit.html' element={<>
+            <div>
+              <ResponsiveAppBar jwt = {jwt} setJwt = {setJwt}/>
+            </div>
+            <header className="App-header">
+                <EditPost jwt = {jwt}/>
             </header>
         </>}/>
 

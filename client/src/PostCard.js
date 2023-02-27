@@ -20,6 +20,8 @@ function handleUpvote(postId, jwt, setScore){
     alert("You need to be logged in to vote!")
     return
   }
+
+
   const postUserId= jwt_decode(jwt).userId.toString()+postId.toString()
   fetch("/api/postVote",{
     method: 'POST',
@@ -82,9 +84,15 @@ function handleDownvote(postId, jwt, setScore){
 }
 
 function PostCard (props){
+  let editButton = <></>
   const [score,setScore] = useState(props.score)
 
 
+
+  if(jwt_decode(props.jwt).userId === props.post.userId){
+    const editUrl = window.location.href+"/edit.html"
+    editButton = <Button href={editUrl} color='secondary' size="small" variant='outlined' sx={{fontSize:"0.6rem", justifyContent: "center"}}>Edit post</Button>
+  }
 
   if(props.commentLink === true){
     if(props.post.content.length > 300){
@@ -151,6 +159,7 @@ function PostCard (props){
           <Typography sx={{m:1, fontSize: "0.6rem", textAlign: "right"}}  color="text.secondary">
           Asked by {props.post.author} {hoursAgo(props.post.created_at)}
           </Typography>
+          <>{editButton}</>
         </Grid>
       </Grid>
     </CardContent>

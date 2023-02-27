@@ -17,15 +17,15 @@ router.get('/', function(req, res, next) {
   let params = []
 
   if(!req.query.userId && !req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
     params = []
   }
   else if(req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
     params = [req.query.postId]
   }
   else if(req.query.userId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND userId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND userId = (?)"
     params = [req.query.userId]
   }
 
@@ -54,6 +54,7 @@ Body must include title, content and userId
 */
 router.post('/', validateJWTToken,function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
+  if(!req.query.postId){
         const query = 'INSERT INTO "Post" (title,content,userId) VALUES (?,?,?)'
         const params = [req.body.title,req.body.content,req.body.userId]
         db.run(query,params,(err)=>{
@@ -63,8 +64,19 @@ router.post('/', validateJWTToken,function(req, res, next) {
           else{
             res.status(200).json({message:"success"});
           }
+        })}
+        else{
+        const query = 'UPDATE Post SET title = (?), content = (?) WHERE PostId = (?)'
+        const params = [req.body.title,req.body.content,req.body.postId]
+        db.run(query,params,(err)=>{
+          if(err){
+            res.status(400).json({error:err.message});
+          }
+          else{
+            res.status(200).json({message:"success"});
+          }
         })
-    }
+    }}
   );
 
 
