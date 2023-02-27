@@ -3,6 +3,9 @@ import './Posts.js';
 import {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import ResponsiveAppBar from './ResponsiveAppBar.js';
+import hljs from "highlight.js";
+
+import "highlight.js/styles/github.css";
 
 
 import { ThemeProvider, createTheme} from '@mui/material/styles';
@@ -63,6 +66,7 @@ function App() {
 
 //Router paths below. 
   return (
+    
     <Router>
       <div className="App">
       <ThemeProvider theme={theme}>

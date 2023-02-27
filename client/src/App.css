@@ -57,6 +57,11 @@ html{
   background: linear-gradient(transparent,rgb(80, 0, 0));
 }
 
+.HorizontalScroll{
+  background-color: rgb(63, 0, 0);
+
+}
+
 a{
   color: white;
 }

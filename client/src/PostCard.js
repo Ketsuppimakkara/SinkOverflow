@@ -11,6 +11,8 @@ import {Box} from '@mui/material'
 import { useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import getScore from './getScore.js'
+import FormattedText from './FormattedText.js'
+
 
 
 function handleUpvote(postId, jwt, setScore){
@@ -82,6 +84,8 @@ function handleDownvote(postId, jwt, setScore){
 function PostCard (props){
   const [score,setScore] = useState(props.score)
 
+
+
   if(props.commentLink === true){
     if(props.post.content.length > 300){
       props.post.content = props.post.content.substring(0,300)+"..."
@@ -89,31 +93,33 @@ function PostCard (props){
     return(
       <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>
         <Grid container alignItems={'center'}>
-          <Grid item xs={1} md={1}>
-            <Stack direction="column" spacing={2}>
+          <Grid item xs={2} md={1}>
+            <Stack direction="column" spacing={2} ml={1}>
                 <Box textAlign={'center'} onClick={()=>{handleUpvote(props.post.postId,props.jwt,setScore)}} >
                   <ArrowUpward/>
                 </Box> 
-                <Typography textAlign={'center'}>{score}</Typography> 
+                <Box textAlign={'center'}>
+                  <Typography>{score}</Typography> 
+                </Box>
                 <Box textAlign={'center'} onClick={()=>{handleDownvote(props.post.postId,props.jwt,setScore)}} >
                   <ArrowDownward/>
                 </Box> 
             </Stack>
           </Grid>
-          <Grid item xs={11} md={11}>
+          <Grid item xs={10} md={11}>
           <CardContent sx={{margin: 1, mt: 1}}>
                 <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
-                  <Typography variant={'h1'} sx={{ fontSize: "1.2rem" ,textAlign: "left"}} color="text.primary">
+                  <Typography variant={'h1'} sx={{ fontSize: {xs: "0.8rem", md:"1.2rem"} ,textAlign: "left"}} color="text.primary">
                     {props.post.title}
                   </Typography>
                 </Link>
-                <Typography variant={'body1'} sx={{fontSize:"0.7rem", mt:5, mb: 5, textAlign: "left"}} color="text.primary">
-                  {props.post.content}
+                <Typography variant={'string'} sx={{fontSize:"0.6rem", mt:5, mb: 5, textAlign: "left"}} color="text.primary">
+                  <FormattedText text = {props.post.content} fontSizexs = "0.6rem" fontSizemd = "0.8rem"></FormattedText>
                 </Typography>
                 <div display="flex" style={{maxWidth:"90%"}}>
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={6} md={10} key='1'>
-                    <Typography sx={{fontSize: '0.6rem', textAlign: "right"}}  color="text.secondary">
+                    <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
                     Asked by {props.post.author} {hoursAgo(props.post.created_at)}
                     </Typography>
                   </Grid>
@@ -134,15 +140,15 @@ function PostCard (props){
     return(
     <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>
     <CardContent sx={{margin: 1, mt: 1}}>
-        <Typography variant={'h1'} sx={{ fontSize: "1.6rem" ,textAlign: "left"}} color="text.primary">
+        <Typography variant={'h1'} sx={{ fontSize: {xs: "1rem", md:"1.4rem"}}} color="text.primary">
           {props.post.title}
         </Typography>
-      <Typography variant={'body1'} sx={{ fontSize:"0.7rem", mt:5, mb: 5, textAlign: "left"}} color="text.primary">
-        {props.post.content}
+      <Typography variant={'string'} sx={{ fontSize: {xs: '0.5rem', md:'0.6rem'}, mt:5, mb: 5, textAlign: "left"}} color="text.primary">
+        <FormattedText text = {props.post.content}></FormattedText>
       </Typography>
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
-          <Typography sx={{mr:3, fontSize: "0.7rem", textAlign: "right"}}  color="text.secondary">
+          <Typography sx={{m:1, fontSize: "0.6rem", textAlign: "right"}}  color="text.secondary">
           Asked by {props.post.author} {hoursAgo(props.post.created_at)}
           </Typography>
         </Grid>

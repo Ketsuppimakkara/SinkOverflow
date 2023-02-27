@@ -13,7 +13,6 @@ import { Box } from '@mui/material';
 import {useParams} from 'react-router-dom'
 
 function AddComment(props) {
-  console.log(props.postId)
   let {id} = useParams()
   
   const [content, setContent] = useState(null);

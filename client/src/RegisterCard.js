@@ -31,7 +31,7 @@ function RegisterCard({setJwt, jwt}) {
             Register
           </Typography>
           <Stack spacing={2}>
-            <TextField id="username" label="Username" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setUsername(evt.target.value)}}/>
+            <TextField id="username" label="Username" variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} inputProps={{maxLength: 20}} onChange={(evt) => {setUsername(evt.target.value)}}/>
             <TextField id="email" label="Email" variant="outlined" type={'email'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setEmail(evt.target.value)}}/>
             <TextField id="password" label="Password" variant="outlined" type={'password'} color='secondary' sx={{input:{background:'#450101'}}} helperText="*At least 8 upper- and lowercase characters, including one number and one symbol required" onChange={(evt) => {setPassword(evt.target.value)}}/>
           </Stack>
