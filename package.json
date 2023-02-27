@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "concurrently": "^7.6.0",
     "react-truncate": "^2.4.0"
-  }
+  },
+  "name": "sinkoverflow",
+  "description": "SinkOverflow",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC"
 }

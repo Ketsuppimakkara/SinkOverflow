@@ -45,7 +45,7 @@ function AddComment(props) {
               <Box textAlign="center">
               <Button color='primary' variant='contained' size="medium" sx={{fontSize: "0.5rem"}} onClick={()=>{
 
-              fetch("http://localhost:3001/api/comments",{
+              fetch("/api/comments",{
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',

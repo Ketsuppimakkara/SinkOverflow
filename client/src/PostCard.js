@@ -19,7 +19,7 @@ function handleUpvote(postId, jwt, setScore){
     return
   }
   const postUserId= jwt_decode(jwt).userId.toString()+postId.toString()
-  fetch("http://localhost:3001/api/postVote",{
+  fetch("/api/postVote",{
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -53,7 +53,7 @@ function handleDownvote(postId, jwt, setScore){
     return
   }
   const postUserId= jwt_decode(jwt).userId.toString()+postId.toString()
-  fetch("http://localhost:3001/api/postVote",{
+  fetch("/api/postVote",{
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',

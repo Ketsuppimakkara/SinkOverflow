@@ -39,7 +39,7 @@ function Posts(props) {
   
   useEffect(()=>{
     async function getPosts(){
-      fetch("http://localhost:3001/api/posts")
+      fetch("/api/posts")
         .then((response) => response.json())
         .then(data =>{
           setAllData(data.data);
