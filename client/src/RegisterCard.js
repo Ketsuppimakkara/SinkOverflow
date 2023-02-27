@@ -37,7 +37,7 @@ function RegisterCard({setJwt, jwt}) {
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>
-          <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
+          <Typography id="Error" sx={{ fontSize: {xs:"0.6rem", md:"1rem"} }} style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
           <Button sx={{size:{xs:"small",md:"large"},fontSize:{xs:"0.6rem",md:"0.8rem"}}} color='secondary' variant='outlined' style={{marginLeft: 'auto'}} onClick={()=>{
 
             fetch("/api/register",{

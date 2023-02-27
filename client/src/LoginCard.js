@@ -28,8 +28,8 @@ function LoginCard({setJwt, setUser, jwt}) {
   return(
     <div style={{width:650, maxWidth:"80%"}}>
       <Card className='LoginCard' sx={{mt:4, minWidth: 275, bgcolor: 'primary.background'}}>
-        <CardContent sx={{ml:6, mr:6}}>
-          <Typography sx={{ fontSize: "1.2rem" }} color="text.secondary" gutterBottom>
+        <CardContent sx={{mx:{xs:1,md:6}}}>
+          <Typography sx={{ fontSize: {xs:"1rem", md:"1.4rem"} }} color="text.secondary" gutterBottom>
             Login
           </Typography>
           <Stack spacing={2}>
@@ -38,8 +38,8 @@ function LoginCard({setJwt, setUser, jwt}) {
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>
-          <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
-          <Button color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{
+          <Typography id="Error" sx={{ fontSize: {xs:"0.6rem", md:"1rem"} }} style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
+          <Button sx={{size:{xs:"small",md:"large"},fontSize:{xs:"0.6rem",md:"0.8rem"}}} color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{
 
             fetch("/api/login",{
               method: 'POST',
