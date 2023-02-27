@@ -3,9 +3,10 @@ SinkOverflow
 This is a full-stack web app for sharing code snippets.
 It functions like an old-school message board.
 
-Features:
+Features
+
 Backend:    
-Markup:	
+
 * Backend implemented with Node.js using Express framework.
 * An SQLite database containing all persistent information
 * API to access and modify the information in the database
