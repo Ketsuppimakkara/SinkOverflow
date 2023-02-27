@@ -6,9 +6,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+
 
 function EditPost({jwt}) {
 
@@ -18,16 +19,39 @@ function EditPost({jwt}) {
   const [content, setContent] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  let previousTitle = ""
+  let previousContent = ""
   const navigate = useNavigate();
 
-  fetch("/api/posts?postId="+id)
-  .then((response) => response.json())
-  .then(postData =>{
-    if(postData.userId !== jwt_decode(jwt).userId){
-      alert("You can only edit your own posts!")      //User is not allowed to go to edit a post they didn't make. You can't get here through the UI but you can just replace the post ID when you're on the edit page. This boots you back 
-      return
-    }
-  })
+  useEffect(()=>{
+    async function getPost(){
+      fetch("/api/posts?postId="+id)
+      .then((response) => response.json())
+      .then(postData =>{
+        const post = postData.data[0]
+
+        if(post.userId !== jwt_decode(jwt).userId){
+          alert("You can only edit your own posts!")      //User is not allowed to go to edit a post they didn't make. You can't get here through the UI but you can just replace the post ID when you're on the edit page. This boots you back 
+          window.history.back()
+          return
+        }
+        else{
+          if(mounted === true){
+            previousTitle = post.title
+            previousContent = post.content
+            document.getElementById("Title").value = post.title
+            document.getElementById("Content").value = post.content
+          }
+        }
+      })
+  }
+
+  let mounted = true;
+  getPost();
+  return()=>{
+    mounted = false
+  }
+},[])
   return(
     <div>
       <Card className='NewPostCard' sx={{ bgcolor: 'primary.background'}}>
@@ -36,8 +60,8 @@ function EditPost({jwt}) {
             Edit post
           </Typography>
           <Stack spacing={2}>
-            <TextField id="Title" label="Title" inputProps={{style:{fontSize:"0.8rem"}}} variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setTitle(evt.target.value)}}/>
-            <TextField id="Content" label="Content" color="secondary" inputProps={{style:{height:"250px", fontSize:"0.8rem"}}} sx={[{textarea:{resize:"vertical"}, backgroundColor:"#450101"}]} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
+            <TextField id="Title"  inputProps={{style:{fontSize:"0.8rem"}}} variant="outlined" type={'text'} color='secondary' sx={{input:{background:'#450101'}}} onChange={(evt) => {setTitle(evt.target.value)}}/>
+            <TextField id="Content"  color="secondary" inputProps={{style:{height:"250px", fontSize:"0.8rem"}}} sx={[{textarea:{resize:"vertical"}, backgroundColor:"#450101"}]} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
           </Stack>
         </CardContent>
         <CardActions style={{display:"flex"}}>
