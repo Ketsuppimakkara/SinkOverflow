@@ -25,6 +25,7 @@ Frontend:   Frontend implemented with React and Material UI
           
 Usage:
 Make sure you have React and NPM installed
+Remember to install dependencies with npm install before running the dev server for the first time
 To run development server, use command "npm run dev"
 You can also run the backend and frontend separately in different 
 terminals with commands "npm run server" and "npm run client"
