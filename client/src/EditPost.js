@@ -41,6 +41,8 @@ function EditPost({jwt}) {
             previousContent = post.content
             document.getElementById("Title").value = post.title
             document.getElementById("Content").value = post.content
+            setTitle(post.title)
+            setContent(post.content)
           }
         }
       })
@@ -66,7 +68,7 @@ function EditPost({jwt}) {
         </CardContent>
         <CardActions style={{display:"flex"}}>
           <Typography id="Error" style={{marginLeft: 'auto'}}> {errorMsg} </Typography>
-          <Button sx={[{size:{xs: "small",md:"large"}},{fontSize: {xs: "0.6rem", md: "1rem"}},{m:{xs:1,md:2}}]} color='secondary' variant='outlined' onClick={()=>{
+          <Button sx={[{size:{xs: "small",md:"large"}},{fontSize: {xs: "0.6rem", md: "1rem"}},{m:{xs:1,md:2}}]} color='primary' variant='contained' onClick={()=>{
 
             fetch("/api/posts?postId="+id,{
               method: 'POST',
@@ -83,9 +85,9 @@ function EditPost({jwt}) {
               .then((response)=>response.json())
               .then((data)=>{
                     if(!data.error){
-                      setErrorMsg("POST CREATED SUCCESSFULLY!")
+                      setErrorMsg("POST EDITED SUCCESSFULLY!")
                       setTimeout(()=>{
-                        window.history.back()},1000);
+                        window.location = "/"},750);
                     }
                     else{
                       setErrorMsg("Title or content cannot be empty".toUpperCase())
@@ -93,6 +95,28 @@ function EditPost({jwt}) {
                 })
             }
           }>Publish edit</Button>
+          <Button sx={[{size:{xs: "small",md:"large"}},{fontSize: {xs: "0.6rem", md: "1rem"}},{m:{xs:1,md:2}}]} color='secondary' variant='outlined' onClick={()=>{
+
+          fetch("/api/posts/delete/"+id,{
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+jwt
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'})
+            .then((response)=>response.json())
+            .then((data)=>{
+                  if(!data.error){
+                    setErrorMsg("POST DELETED!")
+                    setTimeout(()=>{
+                      window.location = "/"},750);
+                  }
+              })
+          }}>DELETE POST</Button>
         </CardActions>
       </Card>
     </div>

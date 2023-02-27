@@ -51,7 +51,9 @@ router.get('/', function(req, res, next) {
 
 /*Post route for adding new post
 Body must include title, content and userId
+If body includes postId, the request gets handled as an edit to an existing post
 */
+
 router.post('/', validateJWTToken,function(req, res, next) {
   res.header('Access-Control-Allow-Origin',"*")       //Set header to allow react to access cross-origin resources
   if(!req.query.postId){

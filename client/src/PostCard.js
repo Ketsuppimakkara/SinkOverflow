@@ -117,7 +117,7 @@ function PostCard (props){
           <Grid item xs={10} md={11}>
           <CardContent sx={{margin: 1, mt: 1}}>
                 <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
-                  <Typography variant={'h1'} sx={{ fontSize: {xs: "0.8rem", md:"1.2rem"} ,textAlign: "left"}} color="text.primary">
+                  <Typography variant={'h1'} sx={{ my:2, fontSize: {xs: "1.0rem", md:"1.6rem"} ,textAlign: "left"}} color="text.primary">
                     {props.post.title}
                   </Typography>
                 </Link>
@@ -148,7 +148,7 @@ function PostCard (props){
     return(
     <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>
     <CardContent sx={{margin: 1, mt: 1}}>
-        <Typography variant={'h1'} sx={{ fontSize: {xs: "1rem", md:"1.4rem"}}} color="text.primary">
+        <Typography variant={'h1'} sx={{ mb:2, fontSize: {xs: "1rem", md:"1.6rem"}}} color="text.primary">
           {props.post.title}
         </Typography>
       <Typography variant={'string'} sx={{ fontSize: {xs: '0.5rem', md:'0.6rem'}, mt:5, mb: 5, textAlign: "left"}} color="text.primary">

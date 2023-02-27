@@ -4,7 +4,6 @@ import {useState, useEffect} from 'react';
 import './BasicPagination.js';
 import {Button} from '@mui/material';
 import BasicPagination from './BasicPagination.js';
-import getScores from './getScores.js'
 
 
 function Posts(props) {
@@ -60,7 +59,7 @@ function Posts(props) {
   return()=>{
     mounted = false
   }
-},[])
+},[currentPage])
 
 return(<div className='Posts-Container'>{data} <BasicPagination postsPerPage = {postsPerPage} allData = {!allData ? {}: allData} onChange={handleChange}/> <Button href='/post/new.html' color={buttonColor} variant={buttonMode} sx={{ my: 2, fontSize:"0.7rem"}}>Add a Post</Button> </div>);
 };

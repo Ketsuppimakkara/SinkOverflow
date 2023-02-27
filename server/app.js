@@ -12,6 +12,7 @@ var registerRouter = require('./routes/api/register');
 var postsRouter = require('./routes/api/posts');
 var commentsRouter = require('./routes/api/comments');
 var postVoteRouter = require('./routes/api/postVote')
+var deletePostRouter = require('./routes/api/deletepost')
 
 
 var db = require('./database.js');
@@ -32,6 +33,7 @@ app.use('/api/register', registerRouter);
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/postVote', postVoteRouter);
+app.use('/api/posts/delete', deletePostRouter);
 app.use('/public/images', express.static('./public/images'));       //This route handles profile images, not yet implemented
 
 module.exports = app;

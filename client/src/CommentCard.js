@@ -12,7 +12,7 @@ function CommentCard (props){
   return(
     <Card className='PostCard' sx={{mt: 1,mb: 1, bgcolor: 'primary.background', boxShadow: 3}}>
     <CardContent sx={{margin: 1}}>
-      <Typography variant={'string'} sx={{ my:{xs:1,md:2}, fontSize:{xs:"0.6rem",md:"1rem"}, textAlign: "left"}} color="text.primary">
+      <Typography variant={'string'} sx={{ my:{xs:1,md:2}, fontSize:{xs:"0.5rem",md:"0.6rem"}, textAlign: "left"}} color="text.primary">
         <FormattedText text = {props.comment.content}></FormattedText>
       </Typography>
       <Grid container alignItems="center">
