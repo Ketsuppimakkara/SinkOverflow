@@ -24,8 +24,7 @@ function EditPost({jwt}) {
   .then((response) => response.json())
   .then(postData =>{
     if(postData.userId !== jwt_decode(jwt).userId){
-      alert("You can only edit your own posts!")      //User is not allowed to go to create post page if they are logged in already. window.history.back just boots them back to where they came from
-      window.history.back()
+      alert("You can only edit your own posts!")      //User is not allowed to go to edit a post they didn't make. You can't get here through the UI but you can just replace the post ID when you're on the edit page. This boots you back 
       return
     }
   })
