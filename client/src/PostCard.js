@@ -128,14 +128,14 @@ function PostCard (props){
                 </Typography>
                 <div display="flex" style={{maxWidth:"90%"}}>
                 <Grid container spacing={4} alignItems="center">
-                  <Grid item xs={6} md={10} key='1'>
+                  <Grid item xs={7} md={10} key='1'>
                     <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
                     Asked by {props.post.author} {hoursAgo(props.post.created_at)}
                     </Typography>
                   </Grid>
-                  <Grid item xs={6} md={2} key='2'>
+                  <Grid item xs={5} md={2} key='2'>
                     <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
-                      <Button color='secondary' size="small" variant='outlined' sx={{fontSize:"0.6rem", justifyContent: "center"}}>Comments</Button>       
+                      <Button color='secondary' size="small" variant='outlined' sx={{fontSize:{xs:"0.4rem",md:"0.6rem"}}}>Comments</Button>       
                     </Link>
                   </Grid>
                 </Grid>

@@ -28,8 +28,7 @@ function handleLogout(jwt, setJwt){
 }
 
 function handleProfile(jwt){
-  console.log(jwt_decode(jwt).userId)
-  console.log("not implemented yet")
+  window.location = "http://localhost:3000/profile/"+jwt_decode(jwt).userId
   return;
 }
 
@@ -221,10 +220,10 @@ function ResponsiveAppBar({jwt, setJwt}) {
               open={Boolean(anchorElUser)}
             >
                 <MenuItem key="Profile" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>handleProfile(jwt)} sx={{fontSize: "0.6rem"}}>{"Profile"}</Typography>
+                  <Typography textAlign="center" onClick={()=>handleProfile(jwt)} sx={{fontSize:{xs:"0.6rem", md:"1rem"}}}>{"Profile"}</Typography>
                 </MenuItem>
                 <MenuItem key="Logout" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>handleLogout(jwt, setJwt)} sx={{fontSize: "0.6rem"}}>{"Logout"}</Typography>
+                  <Typography textAlign="center" onClick={()=>handleLogout(jwt, setJwt)} sx={{fontSize:{xs:"0.6rem", md:"1rem"}}}>{"Logout"}</Typography>
                 </MenuItem>
             </Menu> </> :""}
           </Box>
