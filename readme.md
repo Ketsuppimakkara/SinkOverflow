@@ -21,7 +21,7 @@ Frontend:
 * Password requirements (8 characters, one upper- and one lowercase character, one number and a symbol required)
 * JWT-based authentication
 * Authenticated users can create posts, comment on posts and vote on them 
-* Ability to edit your own posts
+* Ability to edit and delete your own posts
 * Pagination can be used when over 10 posts are in the database
 * Code highlighting syntax for posts and comments
 * Timestamp of post creation visible
