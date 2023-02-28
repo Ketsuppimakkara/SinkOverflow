@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import {Grid, Stack } from '@mui/material';
-import {ArrowUpward, ArrowDownward} from '@mui/icons-material'
+import {ArrowUpward, ArrowDownward, WifiProtectedSetupSharp} from '@mui/icons-material'
 import { Link } from '@mui/material';
 import hoursAgo from './hoursAgo.js';
 import {Box} from '@mui/material'
@@ -88,11 +88,13 @@ function PostCard (props){
   const [score,setScore] = useState(props.score)
 
 
-
-  if(jwt_decode(props.jwt).userId === props.post.userId){
-    const editUrl = window.location.href+"/edit.html"
-    editButton = <Button href={editUrl} color='secondary' size="small" variant='outlined' sx={{fontSize:"0.6rem", justifyContent: "center"}}>Edit post</Button>
+  if(props.jwt){
+    if(jwt_decode(props.jwt).userId === props.post.userId){
+      const editUrl = window.location.href+"/edit.html"
+      editButton = <Button href={editUrl} color='secondary' size="small" variant='outlined' sx={{fontSize:"0.6rem", justifyContent: "center"}}>Edit post</Button>
+    }
   }
+
 
   if(props.commentLink === true){
     if(props.post.content.length > 300){

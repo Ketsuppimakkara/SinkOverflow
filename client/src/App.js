@@ -9,6 +9,7 @@ import "highlight.js/styles/github.css";
 
 
 import { ThemeProvider, createTheme} from '@mui/material/styles';
+import {Button} from '@mui/material'
 import Posts from './Posts.js';
 import Post from './Post.js';
 import LoginCard from './LoginCard';
@@ -17,12 +18,22 @@ import Comments from './Comments.js'
 import AddPost from './AddPost';
 import AddComment from './AddComment';
 import EditPost from './EditPost.js'
+import Profile from './Profile';
 
 // On the lowest level we handle JWT authentication, the basic color theme and routing.
 function App() {
 
+
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const [user, setUser] = useState({});
+
+  let addPostButtonMode = "outlined"
+  let addPostButtonColor = "secondary"
+
+  if(jwt !== null){
+    addPostButtonMode = "contained"
+    addPostButtonColor = "primary"
+  }
 
   const theme = createTheme({
     palette: {
@@ -78,6 +89,7 @@ function App() {
             </div>
             <header className="App-header">
                 <Posts jwt = {jwt} postArray={!data ? {data:[{postId: 1, title:"Loading...",content:"Loading...",author:"Loading..."},{postId: 2, title:"Loading...",content:"Loading...",author:"Loading..."}]}: data}/>
+                <Button href='/post/new.html' color={addPostButtonColor} variant={addPostButtonMode} sx={{ my: 2, fontSize:"0.7rem"}}>Add a Post</Button> 
             </header>
         </>}/>
 
@@ -125,6 +137,16 @@ function App() {
             </div>
             <header className="App-header">
                 <EditPost jwt = {jwt}/>
+            </header>
+        </>}/>
+
+        
+        <Route path='/profile/:id' element={<>
+            <div>
+              <ResponsiveAppBar jwt = {jwt} setJwt = {setJwt}/>
+            </div>
+            <header className="App-header">
+                <Profile jwt = {jwt}/>
             </header>
         </>}/>
 

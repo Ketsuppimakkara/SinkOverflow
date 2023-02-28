@@ -5,20 +5,27 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import hoursAgo from './hoursAgo.js';
 import FormattedText from './FormattedText.js'
+import { Link } from 'react-router-dom';
 
 
 
 function CommentCard (props){
+  let content = <FormattedText text = {props.comment.content}></FormattedText>
+
+  if(props.withLink === true){
+    content= <Link to ={"../../post/"+props.comment.postId}> <FormattedText text = {props.comment.content}></FormattedText> </Link>
+  }
+
   return(
     <Card className='PostCard' sx={{mt: 1,mb: 1, bgcolor: 'primary.background', boxShadow: 3}}>
     <CardContent sx={{margin: 1}}>
       <Typography variant={'string'} sx={{ my:{xs:1,md:2}, fontSize:{xs:"0.5rem",md:"0.6rem"}, textAlign: "left"}} color="text.primary">
-        <FormattedText text = {props.comment.content}></FormattedText>
+        {content}
       </Typography>
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
           <Typography sx={{m:1, fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-          Posted by {props.comment.author} {hoursAgo(props.comment.created_at)}
+          {props.comment.author} posted {hoursAgo(props.comment.created_at)}
           </Typography>
         </Grid>
       </Grid>

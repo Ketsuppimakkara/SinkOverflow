@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     params = [req.query.postId]
   }
   else if(req.query.userId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND userId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND User.userId = (?)"
     params = [req.query.userId]
   }
 

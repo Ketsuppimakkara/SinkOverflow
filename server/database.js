@@ -17,7 +17,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
         db.run("PRAGMA foreign_keys = ON"); //Enable foreign keys in the database
 
         //Setups 
-        db.run('CREATE TABLE User (userId INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT  NOT NULL, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, CONSTRAINT email_unique UNIQUE (email))',(err)=>{
+        db.run('CREATE TABLE User (userId INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT  NOT NULL, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, created_at TEXT DEFAULT CURRENT_TIMESTAMP, CONSTRAINT email_unique UNIQUE (email))',(err)=>{
             if(err){
                 if(err.message === "SQLITE_ERROR: table User already exists"){
                     return

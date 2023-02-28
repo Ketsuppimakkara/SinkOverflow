@@ -7,18 +7,13 @@ import BasicPagination from './BasicPagination.js';
 
 
 function Posts(props) {
-  let buttonMode = "contained"
-  let buttonColor = "primary"
-  if(!props.jwt){
 
-    buttonMode = "outlined"
-    buttonColor = "secondary"
-  }
 
   const [data, setData] = useState(null);
   const [currentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(props.postsPerPage ? props.postsPerPage:10);   //Ternary operator uses prop if its there, otherwise defaults to 10
   const [allData, setAllData] = useState(null);
+
   let scoreArray = [];
 
   const handleChange = (event, value, scoreArray) => {
@@ -38,7 +33,27 @@ function Posts(props) {
   
   useEffect(()=>{
     async function getPosts(){
-      fetch("/api/posts")
+      if(props.userId){                                         //Fetch only the specified user's posts if userId is provided as a prop (Used in looking at profiles)
+        fetch("/api/posts?userId="+props.userId) 
+        .then((response) => response.json())
+        .then(data =>{
+          setAllData(data.data);
+          const posts = data.data.slice(indexOfFirstRecord,indexOfLastRecord).map(post=>{
+            return(
+                <PostCard post = {post} score={post.voteScore} jwt={props.jwt} commentLink={true} key={post.postId}/>
+            )
+            })
+
+            if(mounted === true){
+              setData(posts)
+            } 
+        });
+      
+      }
+      else{                                                     //Otherwise fetch all posts (Default mode for getting posts on frontpage)
+
+      
+      fetch("/api/posts") 
         .then((response) => response.json())
         .then(data =>{
           setAllData(data.data);
@@ -53,6 +68,7 @@ function Posts(props) {
             } 
         });
       }
+      }
     
   let mounted = true;
   getPosts();
@@ -61,6 +77,6 @@ function Posts(props) {
   }
 },[currentPage])
 
-return(<div className='Posts-Container'>{data} <BasicPagination postsPerPage = {postsPerPage} allData = {!allData ? {}: allData} onChange={handleChange}/> <Button href='/post/new.html' color={buttonColor} variant={buttonMode} sx={{ my: 2, fontSize:"0.7rem"}}>Add a Post</Button> </div>);
+return(<div className='Posts-Container'>{data} <BasicPagination postsPerPage = {postsPerPage} allData = {!allData ? {}: allData} onChange={handleChange}/></div>);
 };
 export default Posts;

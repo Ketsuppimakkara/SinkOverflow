@@ -24,9 +24,12 @@ function Post(jwt) {
         .then((commentResponse) => commentResponse.json())
         .then(commentData =>{
           postData.comments = commentData
-          if(postData.data[0].userId === jwt_decode(jwt.jwt).userId){
-            editButton = true;
+          if(jwt.jwt){                                                                      //If there is a JWT, and the user is the posts' author, they can see the "edit post" button. Otherwise its hidden
+            if(postData.data[0].userId === jwt_decode(jwt.jwt).userId){
+              editButton = true;
+            }
           }
+
           const posts = ()=>{
             return(
               <>

@@ -22,12 +22,12 @@ router.get('/', function(req, res, next) {
   }
   else{                   
     if(req.query.postId){
-      query = "SELECT commentId, content, username AS 'author', created_at FROM COMMENT LEFT JOIN USER ON Comment.userId = User.userId WHERE Comment.PostId = (?)"
+      query = "SELECT commentId, content, username AS 'author', Comment.created_at FROM COMMENT LEFT JOIN USER ON Comment.userId = User.userId WHERE Comment.PostId = (?)"
       params = [req.query.postId]
     }
     if(req.query.userId){
-      query =  "SELECT * FROM Post WHERE userId = (?)"
-      params = [req.query.postId]
+      query =  "SELECT * FROM Comment WHERE userId = (?)"
+      params = [req.query.userId]
     }
   }
   db.all(query,params,(err,row)=>{
