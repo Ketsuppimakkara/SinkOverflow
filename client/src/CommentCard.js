@@ -25,8 +25,8 @@ function CommentCard (props){
       </Typography>
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
-          <Typography sx={{m:1, fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-            {props.comment.author} posted {hoursAgo(props.comment.created_at)}
+          <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
+          Asked by {<a sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={"../../profile/"+props.comment.userId}>{props.comment.author}</a>} {hoursAgo(props.comment.created_at)}
           </Typography>
         </Grid>
       </Grid>
