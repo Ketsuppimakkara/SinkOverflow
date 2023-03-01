@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 
 function CommentCard (props){
-  console.log(props)
   let content = <FormattedText text = {props.comment.content}></FormattedText>
 
   if(props.withLink === true){

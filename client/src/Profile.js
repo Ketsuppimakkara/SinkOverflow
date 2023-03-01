@@ -18,7 +18,7 @@ function Profile({jwt}) {
 
   let {id} = useParams()
   const [data, setData] = useState();
-  const [profileData, setProfileData] = useState({"name":"loading","registerDate":"loading"})
+  const [profileData, setProfileData] = useState({"name":"loading","registerDate":"loading","userId":"0"})
   const [postData, setPostData] = useState(<Posts jwt = {jwt} userId={id} postsPerPage={5} postArray={!data ? {data:[{postId: 1, title:"Loading...",content:"Loading...",author:"Loading..."},{postId: 2, title:"Loading...",content:"Loading...",author:"Loading..."}]}: data}/>);
   const [setting, setSetting] = useState("comments");
   const didMount = useRef(false)
@@ -44,8 +44,9 @@ function Profile({jwt}) {
       fetch("/api/users?userId="+id)
       .then((response)=>response.json())
       .then(data=>{
+
         const registerDate = data.data.created_at.split(" ")[0].split("-")                  //First split the time, then split dates. They get reconstructed in the next row
-        setProfileData({"name":data.data.username,"registerDate":registerDate[2]+"."+registerDate[1]+"."+registerDate[0]})       
+        setProfileData({"name":data.data.username,"registerDate":registerDate[2]+"."+registerDate[1]+"."+registerDate[0],"userId":data.data.userId})       
       })
               
     }
@@ -60,7 +61,7 @@ function Profile({jwt}) {
               <Stack sx={{mx:4, mb:4}} spacing={2}>
                 <div>
                 <Typography variant='h1' sx={{fontSize:"1.8rem",mt:2}}>{profileData.name}</Typography>
-                  <Avatar alt="Longnose dog" src="/public/images/profile.png" sx={{width:86,height:86,m:2}}/>
+                  <Avatar alt="Longnose dog" src={"/public/images/profile"+profileData.userId+".png"} sx={{width:86,height:86,m:2}}/>
                   <Typography sx={{fontSize:"0.8rem"}}>Member since {profileData.registerDate}</Typography>
                 </div>
                 <div>
@@ -82,7 +83,7 @@ function Profile({jwt}) {
             </Grid>
             <Grid item xs={6} md={8}>
               <CardContent sx={{margin: 4}}>
-                {postData}
+                  {postData}
               </CardContent>
             </Grid>
         </Grid>
@@ -92,7 +93,7 @@ function Profile({jwt}) {
               <Stack sx={{mx:1, mb:1}} spacing={2}>
                 <div display="flex">
                   <Typography variant='h1' sx={{fontSize:"1rem",mt:1}}>{profileData.name}</Typography>
-                  <Avatar alt="Longnose dog" src="/public/images/profile.png" sx={{width:66,height:66,m:2}}/>
+                  <Avatar alt="Longnose dog" src={"/public/images/profile"+profileData.userId+".png"} sx={{width:66,height:66,m:2}}/>
                   <Typography sx={{fontSize:"0.6rem"}}>Member since {profileData.registerDate}</Typography>
                 </div>
                 <div>
@@ -104,12 +105,10 @@ function Profile({jwt}) {
                       Comments
                     </Button>
                   </Stack>
-                </div>
-                <div>         
+                </div>     
                 <CardContent sx={{width: "78vw",margin: 1}}>
                   {postData}
-                </CardContent>
-                </div>  
+                </CardContent> 
               </Stack>
   </Card>
 </>

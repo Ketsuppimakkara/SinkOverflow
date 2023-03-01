@@ -118,7 +118,7 @@ function ResponsiveAppBar({jwt, setJwt}) {
                 </Menu>
               </Box>
 
-            <CountertopsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize:"1.6rem" }} />
+            <CountertopsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 0.5, fontSize:"1.6rem" }} />
               <Typography
                 variant="h5"
                 noWrap
@@ -126,9 +126,8 @@ function ResponsiveAppBar({jwt, setJwt}) {
                 href="/"
                 sx={{
                   fontSize: "0.8rem",
-                  mr: 2,
+                  mr:2,
                   display: { xs: 'flex', md: 'none' },
-                  flexGrow: 1,
                   fontFamily: 'monospace',
                   fontWeight: 700,
                   lineHeight: 0.8,
@@ -140,12 +139,12 @@ function ResponsiveAppBar({jwt, setJwt}) {
                 Sink<br></br>Overflow
               </Typography>
 
-              <Box sx={{fontSize:"0.6rem", display: { xs: 'flex', md: 'none' } }}>{jwt? "Welcome, "+jwt_decode(jwt).username:
+              <Box sx={{fontSize:"0.5rem", display: { xs: 'flex', md: 'none' } }}>{jwt? jwt_decode(jwt).username:
                 <>{loginOptions.map((option) => (
                   <Link key={option} to={"/"+option+".html"} style={{textDecoration: 'none'}}  >
                     <Button
                       onClick={handleCloseLoginMenu}
-                      sx={{ my: 2,  color: 'primary.text', display: 'block', fontSize: "0.6rem" }}
+                      sx={{ my: 2,  color: 'primary.text', display: 'block', fontSize: "0.5rem" }}
                     >
                       {option}
                     </Button>
@@ -204,7 +203,7 @@ function ResponsiveAppBar({jwt, setJwt}) {
           </Box>
           <Box sx={{ flexGrow: 0 }}>{jwt? <><Tooltip title="Open settings">                                       
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Longnose dog" src="/public/images/profile.png" />
+                <Avatar sx={{margin:1}} alt="Longnose dog" src="/public/images/profile.png" />
               </IconButton>
             </Tooltip>
             <Menu
