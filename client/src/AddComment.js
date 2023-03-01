@@ -34,7 +34,7 @@ function AddComment(props) {
           <Typography sx={{ fontSize: "0.8rem" }} color="text.secondary" gutterBottom>
             Reply with a comment
           </Typography>
-            <TextField id="Content" fullWidth inputProps={{style:{height:"180px", fontSize:"0.8rem"}}} color="secondary" sx={{textarea:{resize:"vertical"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
+            <TextField id="Content" fullWidth inputProps={{style:{height:"10vh", fontSize:"0.8rem"}}} color="secondary" sx={{textarea:{resize:"vertical"}, backgroundColor:"#450101"}} variant="outlined" type={'text'} multiline onChange={(evt) => {setContent(evt.target.value)}}/>
         </CardContent>
         <CardActions style={{display:"flex"}}>
           <Grid container>

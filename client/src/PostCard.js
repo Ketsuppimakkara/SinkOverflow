@@ -90,7 +90,6 @@ function handleDownvote(postId, jwt, setScore){
 //The Post card render function. Prop commentLink defines which variant gets rendered.
 //TODO: It would make more sense to separate variants to different components instead of rendering them conditionally
 function PostCard (props){
-  console.log(props)
   let editTime = ""
   let editButton = <></>
   const [score,setScore] = useState(props.score)
@@ -180,7 +179,7 @@ function PostCard (props){
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
           <Typography sx={{m:1, fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-          Asked by {props.post.author} {hoursAgo(props.post.created_at)} {editTime}
+          Asked by <Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link> {hoursAgo(props.post.created_at)} {editTime}
           </Typography>
           <>{editButton}</>
         </Grid>

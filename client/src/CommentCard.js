@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 
 function CommentCard (props){
+  console.log(props)
   let content = <FormattedText text = {props.comment.content}></FormattedText>
 
   if(props.withLink === true){
@@ -25,7 +26,7 @@ function CommentCard (props){
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
           <Typography sx={{m:1, fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-          {props.comment.author} posted {hoursAgo(props.comment.created_at)}
+            {props.comment.author} posted {hoursAgo(props.comment.created_at)}
           </Typography>
         </Grid>
       </Grid>

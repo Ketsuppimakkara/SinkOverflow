@@ -30,8 +30,8 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
             else{
                 //Table created, adding dummy data:
                 const stmt = db.prepare('INSERT INTO User (username, email, password) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
-                stmt.run('Admin','admin@sinkoverflow.com','password1234');
-                stmt.run('Lassi','poweruser@email.com','KOd1@k17');
+                stmt.run('SinkOverflow Official','admin@sinkoverflow.com','$2a$10$UeQytQy7Kv1BTg2eQw473.enze3J6hPeb0u/F5dUQ7UiolxzrVrTK');
+                stmt.run('Tobias Rieper','47@ica.com','$2a$10$UeQytQy7Kv1BTg2eQw473.enze3J6hPeb0u/F5dUQ7UiolxzrVrTK');
                 stmt.finalize()
                 
                 //Setup a post list
@@ -43,8 +43,9 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                         //Table created, adding dummy data:
                         const stmt = db.prepare('INSERT INTO Post (title, content, userId, voteScore) VALUES (?,?,?,?)')         //Prepared statement protects against SQL Injection attacks
         
-                        stmt.run('How do i create a <blink> tag?',"I found this cool tag but it doesn't work. What's up with that?",2,0);
-                        stmt.run('Ask your code questions here',"Somebody will surely help you :)","1","2");
+                        stmt.run('Welcome to SinkOverflow',"This is a place to ask and answer code questions. Consider registering as a user to experience the full richness of this product.","1","2");
+                        stmt.run("I have some code here which I think has multiple security vulnerabilities. How many can you spot?","Here's the source code: \n<code>var printText = $('.text').data('text');\n\nvar contentArray = printText.split('/n');\n$.each(contentArray, function(index, newLine) {\n  $('.text').append('<span style='display:block;' id='+index+'></span>');\n  \n  var lineID = index;\n  var self = $(this);\n    setTimeout(function () {\n      $.each(self, function(index, chunk){\n          setTimeout(function () {\n            $('#'+lineID).append('<span>'+chunk+'</span>');\n            $('body, html').scrollTop($(document).height());\n          }, index*5);\n      });\n      \n    }, index*100);\n});\n</code>\nThanks for the help!",2,1);
+
                         
                         stmt.finalize()
 
@@ -58,8 +59,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                             else{
                                 //Table created, adding dummy data:
                                 const stmt = db.prepare('INSERT INTO Comment (postId, content, userId) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
-                                stmt.run('1',"You should look into https://www.spacejam.com/1996/, see if you get some inspiration","1");
-                                stmt.run('1',"Thanks, this looks great!","2");
+                                stmt.run('2'," I'm a security expert working on keycard readers at Kronstadt, by the way so you know you can trust me. I'll make sure any problems you can spot get the attention they deserve.","2");
 
                                 stmt.finalize()
 
@@ -71,8 +71,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                                         //Table created, adding dummy data:
                                         const stmt = db.prepare('INSERT INTO postVote (postId, userId, voteScore) VALUES (?,?,?)')         //Prepared statement protects against SQL Injection attacks
                                         stmt.run('1',"2","1");
-                                        stmt.run('1',"1","-1");
-                                        stmt.run('2',"1","1");
+                                        stmt.run('1',"1","1");
                                         stmt.run('2',"2","1");
         
                                         stmt.finalize()
