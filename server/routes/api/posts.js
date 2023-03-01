@@ -17,15 +17,15 @@ router.get('/', function(req, res, next) {
   let params = []
 
   if(!req.query.userId && !req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at, Post.updated_at FROM Post, User WHERE User.userId = Post.userId ORDER BY Post.postId DESC"
     params = []
   }
   else if(req.query.postId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at, Post.updated_at FROM Post, User WHERE User.userId = Post.userId AND postId = (?)"
     params = [req.query.postId]
   }
   else if(req.query.userId){
-    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at FROM Post, User WHERE User.userId = Post.userId AND User.userId = (?)"
+    query = "SELECT Post.postId, Post.title, Post.content, User.username AS 'author', Post.userId, voteScore, Post.created_at, Post.updated_at FROM Post, User WHERE User.userId = Post.userId AND User.userId = (?)"
     params = [req.query.userId]
   }
 

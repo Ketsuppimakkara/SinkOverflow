@@ -90,6 +90,8 @@ function handleDownvote(postId, jwt, setScore){
 //The Post card render function. Prop commentLink defines which variant gets rendered.
 //TODO: It would make more sense to separate variants to different components instead of rendering them conditionally
 function PostCard (props){
+  console.log(props)
+  let editTime = ""
   let editButton = <></>
   const [score,setScore] = useState(props.score)
 
@@ -101,11 +103,15 @@ function PostCard (props){
     }
   }
 
+  
+  if(props.post.updated_at){
+    editTime = "edited "+hoursAgo(props.post.updated_at)
+  }
+
   //Here is the definition of a post with a link to comments (Used on home page)
   //Front page posts get truncated if they are longer than 300 characters.
   //Clicking on either the title or the comments button will take you to the posts own page
   //Clicking on author's name will take you to their profile page
-
   if(props.commentLink === true){
     if(props.post.content.length > 300){
       props.post.content = props.post.content.substring(0,300)+"..."
@@ -140,7 +146,7 @@ function PostCard (props){
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={7} md={10} key='1'>
                     <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-                    Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)}
+                    Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)} {editTime}
                     </Typography>
                   </Grid>
                   <Grid item xs={5} md={2} key='2'>
@@ -172,7 +178,7 @@ function PostCard (props){
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
           <Typography sx={{m:1, fontSize: "0.6rem", textAlign: "right"}}  color="text.secondary">
-          Asked by {props.post.author} {hoursAgo(props.post.created_at)}
+          Asked by {props.post.author} {hoursAgo(props.post.created_at)} {editTime}
           </Typography>
           <>{editButton}</>
         </Grid>

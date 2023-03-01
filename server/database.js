@@ -35,7 +35,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                 stmt.finalize()
                 
                 //Setup a post list
-                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(userId) REFERENCES User(userId) ON DELETE CASCADE)',(err)=>{
+                db.run('CREATE TABLE Post (postId INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, voteScore INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP, updated_at TEXT, FOREIGN KEY(userId) REFERENCES User(userId) ON DELETE CASCADE)',(err)=>{
                     if(err){
                         console.log(err);
                     }
@@ -48,7 +48,7 @@ const db = new sqlite3.Database(DBSOURCE, (err) =>{
                         
                         stmt.finalize()
 
-
+                        db.run("CREATE TRIGGER LastUpdated AFTER UPDATE ON Post FOR EACH ROW BEGIN UPDATE Post SET updated_at = CURRENT_TIMESTAMP WHERE postId = OLD.postId; END")
 
                         //Setup a comment list
                         db.run('CREATE TABLE Comment (commentId INTEGER PRIMARY KEY AUTOINCREMENT, postId INTEGER NOT NULL, content TEXT NOT NULL, userId INTEGER NOT NULL, created_at TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(postId) REFERENCES Post(PostId) ON DELETE CASCADE, FOREIGN KEY(userId) REFERENCES User(userId) ON DELETE CASCADE)',(err)=>{
