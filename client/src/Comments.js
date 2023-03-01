@@ -5,7 +5,8 @@ import './BasicPagination.js';
 import {useParams} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-
+//This returns comments from database. If userId prop is given, fetches comments made by that user. (UserId comments get fetched when viewing comments from profile)
+//
 function Comments({jwt, userId}) {
 
   let {id} = useParams()

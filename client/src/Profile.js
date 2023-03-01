@@ -10,7 +10,10 @@ import Posts from './Posts.js';
 import Comments from './Comments.js';
 
 
-
+//This function renders the profile page. You don't need to be logged in to view these.
+//Gets userId from url parameter. Shows a Posts or Comments component on the right side of the profile on desktop, and below the profile on mobile.
+//Has a button that changes a state which drives whether to show posts by the user or comments by the user
+//Calculates the register date from timestamp in user database. Profile image support not implemented, but UI is there.
 function Profile({jwt}) {
 
   let {id} = useParams()
@@ -37,7 +40,6 @@ function Profile({jwt}) {
   },[setting])    //If setting hasn't changed, don't do the fetch even if the page re-renders
    
   useEffect(()=> async function getProfileData(){
-    console.log("what")
     if(profileData.name === "loading"){
       fetch("/api/users?userId="+id)
       .then((response)=>response.json())
@@ -47,7 +49,7 @@ function Profile({jwt}) {
       })
               
     }
-  },[])    //If setting hasn't changed, don't do the fetch even if the page re-renders
+  },[])
 
 
   let profileComponent = 
@@ -58,7 +60,7 @@ function Profile({jwt}) {
               <Stack sx={{mx:4, mb:4}} spacing={2}>
                 <div>
                 <Typography variant='h1' sx={{fontSize:"1.8rem",mt:2}}>{profileData.name}</Typography>
-                  <Avatar alt="Longnose dog" src="/public/images/borzoi.jpg" sx={{width:86,height:86,m:2}}/>
+                  <Avatar alt="Longnose dog" src="/public/images/profile.png" sx={{width:86,height:86,m:2}}/>
                   <Typography sx={{fontSize:"0.8rem"}}>Member since {profileData.registerDate}</Typography>
                 </div>
                 <div>
@@ -90,7 +92,7 @@ function Profile({jwt}) {
               <Stack sx={{mx:1, mb:1}} spacing={2}>
                 <div display="flex">
                   <Typography variant='h1' sx={{fontSize:"1rem",mt:1}}>{profileData.name}</Typography>
-                  <Avatar alt="Longnose dog" src="/public/images/borzoi.jpg" sx={{width:66,height:66,m:2}}/>
+                  <Avatar alt="Longnose dog" src="/public/images/profile.png" sx={{width:66,height:66,m:2}}/>
                   <Typography sx={{fontSize:"0.6rem"}}>Member since {profileData.registerDate}</Typography>
                 </div>
                 <div>

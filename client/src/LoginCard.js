@@ -10,7 +10,8 @@ import {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
 
-
+//This function renders the login card. If you're already logged in, you shouldn't be here, so you get redirected.
+//On successful login, you get a Json Web Token, which gets stored in your localstorage for persistence. JWT expires after 20 minutes. 
 function LoginCard({setJwt, setUser, jwt}) {
 
   const [email, setEmail] = useState(null);

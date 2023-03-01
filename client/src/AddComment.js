@@ -12,6 +12,9 @@ import { Grid } from '@mui/material';
 import { Box } from '@mui/material';
 import {useParams} from 'react-router-dom'
 
+//This gets called when viewing individual posts.
+//If user is not logged in, shows an "add comment" button which just informs them that they should log in first. Otherwise shows a resizable comment field where comments can be posted.
+
 function AddComment(props) {
   let {id} = useParams()
   
@@ -20,7 +23,7 @@ function AddComment(props) {
 
   const navigate = useNavigate();
 
-  if(props.jwt.jwt === null){                //User is not allowed to go to create post page if they are logged in already. window.history.back just boots them back to where they came from
+  if(props.jwt.jwt === null){                
     return(<Box justifyContent={'center'}> <Button color='secondary' variant='outlined' size="large" style={{marginLeft: 'auto'}} onClick={()=>{alert("You must be logged in to post comments!")}}>Add comment</Button> </Box>)
   }
   else{
@@ -72,8 +75,6 @@ function AddComment(props) {
               </Box>
             </Grid>
           </Grid>
-
-
         </CardActions>
       </Card>
     </div>

@@ -20,13 +20,18 @@ import AddComment from './AddComment';
 import EditPost from './EditPost.js'
 import Profile from './Profile';
 
-// On the lowest level we handle JWT authentication, the basic color theme and routing.
+// On the lowest level we handle JWT authentication, localStorage, the basic color theme and routing.
+// This could use refactoring to use the user state instead of passing jwt around.
+
+//TODO: Add a refresh to jwt on interactions, currently jwt expires in 20 minutes regardless of what you do on the site, bar logging out.
 function App() {
 
 
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const [user, setUser] = useState({});
 
+
+  //These set the visual look of buttons based on whether user is logged in. The buttons are less conspicuous when not logged in.
   let addPostButtonMode = "outlined"
   let addPostButtonColor = "secondary"
 
@@ -57,12 +62,16 @@ function App() {
       }
     },
   });
-
+  
+  //Thiss data state has the posts on the front page.
   const [data, setData] = useState(null);
 
+
+  //Primary useEffet for posts. Fetches all posts from api, then sets the data for use in a Posts component
+  //This gets updated once per render
   useEffect(()=>{
     async function getPosts(){
-      fetch("http://localhost:3001/api/posts")
+      fetch("/api/posts")
       .then((response) => response.json())
       .then(data);
       if(mounted === true){
@@ -76,7 +85,7 @@ function App() {
   }
 },[])
 
-//Router paths below. 
+//Router paths and their rendered components below. 
   return (
     
     <Router>

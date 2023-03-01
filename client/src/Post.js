@@ -7,7 +7,9 @@ import AddComment from './AddComment.js';
 import jwt_decode from 'jwt-decode';
 
 
-
+//This is for viewing an individual post. It gets the postId from URL. Id gets passed to API, where parametrized database queries are made.
+//This renders a PostCard for the individual post, it adds an edit button if the posts' author is looking at the page.
+//First fetches the post, then comments related to it. Comment field is defined in AddComment component.
 function Post(jwt) {
 
   let {id} = useParams()

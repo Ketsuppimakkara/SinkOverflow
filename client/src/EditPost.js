@@ -10,6 +10,9 @@ import {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
+//This returns the view for editing a post. First fetches the post data from database, compares JWT userid with posts author. If there's a discrepancy, boots you back to where you came from
+//Sets textfields to include the edited post's content.
+//Also renders a button to delete the post, if the user is authenticated.
 
 function EditPost({jwt}) {
 

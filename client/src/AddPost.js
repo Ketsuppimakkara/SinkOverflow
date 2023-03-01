@@ -10,6 +10,8 @@ import {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
+//This renders the page where you can add new posts. You have to be logged in to see this.
+
 function AddPost(jwt) {
     
   const [title, setTitle] = useState(null);

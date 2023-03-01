@@ -14,7 +14,8 @@ import getScore from './getScore.js'
 import FormattedText from './FormattedText.js'
 
 
-
+//First check if jwt exists, decode it and use its' data to send a POST request to /api/postVote.
+//The backend makes sure a user cannot give more than one up- or downvote. Sending the same vote on the same post again resets the vote.
 function handleUpvote(postId, jwt, setScore){
   if(!jwt){
     alert("You need to be logged in to vote!")
@@ -50,6 +51,8 @@ function handleUpvote(postId, jwt, setScore){
   return
 }
 
+//First check if jwt exists, decode it and use its' data to send a POST request to /api/postVote.
+//The backend makes sure a user cannot give more than one up- or downvote. Sending the same vote on the same post again resets the vote.
 function handleDownvote(postId, jwt, setScore){
 
   if(!jwt){
@@ -83,11 +86,14 @@ function handleDownvote(postId, jwt, setScore){
   return
 }
 
+
+//The Post card render function. Prop commentLink defines which variant gets rendered.
+//TODO: It would make more sense to separate variants to different components instead of rendering them conditionally
 function PostCard (props){
   let editButton = <></>
   const [score,setScore] = useState(props.score)
 
-
+  //If the user is logged in with a JWT, then check If the user is this posts' author, define the "Edit Post" button here. It will be rendered conditionally later
   if(props.jwt){
     if(jwt_decode(props.jwt).userId === props.post.userId){
       const editUrl = window.location.href+"/edit.html"
@@ -95,6 +101,10 @@ function PostCard (props){
     }
   }
 
+  //Here is the definition of a post with a link to comments (Used on home page)
+  //Front page posts get truncated if they are longer than 300 characters.
+  //Clicking on either the title or the comments button will take you to the posts own page
+  //Clicking on author's name will take you to their profile page
 
   if(props.commentLink === true){
     if(props.post.content.length > 300){
@@ -130,7 +140,7 @@ function PostCard (props){
                 <Grid container spacing={4} alignItems="center">
                   <Grid item xs={7} md={10} key='1'>
                     <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-                    Asked by {props.post.author} {hoursAgo(props.post.created_at)}
+                    Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)}
                     </Typography>
                   </Grid>
                   <Grid item xs={5} md={2} key='2'>
@@ -146,6 +156,9 @@ function PostCard (props){
       </Card>
   )
   }
+
+    //Here is the definition of a post without a link to comments (Used when viewing a single post and its comments)
+    //This one has the editButton if the user is the posts author. The post can be deleted from the editing page.
   else{
     return(
     <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>

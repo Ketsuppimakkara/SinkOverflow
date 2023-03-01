@@ -1,3 +1,5 @@
+//This function converts a timestamp to a string representing how long ago the timestamp is from the current time.
+//Returns the longest applicable time period, from minutes to years.
 function hoursAgo(timestamp){
     const timestampUnix = Date.parse(timestamp)
     const now = new Date()

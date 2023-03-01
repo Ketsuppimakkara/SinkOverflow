@@ -9,7 +9,9 @@ import Stack from '@mui/material/Stack'
 import {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
-
+//Function for the registration. Similar to login card, but with the extra username text field.
+//Registration phase has password requirements: at least 8 characters, one of which is lowercase, one uppercase, one symbol and one number. Email must be in email format. Username cannot be over 20 characters long.
+//Has a normally hidden error text field which gets updated if one of the conditions above get violated. Also includes a success message which gets shown when registration is succesful.
 function RegisterCard({setJwt, jwt}) {
 
   const [email, setEmail] = useState(null);

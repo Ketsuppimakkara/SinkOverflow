@@ -16,10 +16,11 @@ import {Link} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 
-
-const pages = ['All questions', 'About'];
+//These define how many list items the app bar has. 
+const pages = ['All questions'];
 const loginOptions = ['Login', 'Register'];
 
+//This clears localstorage and sets jwt state to null when user logs out.
 function handleLogout(jwt, setJwt){
   setJwt(null);
   localStorage.clear()
@@ -27,11 +28,16 @@ function handleLogout(jwt, setJwt){
   return;
 }
 
+//This redirects you to your own profile when you select the relvant menu option
 function handleProfile(jwt){
   window.location = "http://localhost:3000/profile/"+jwt_decode(jwt).userId
   return;
 }
 
+//This function renders a responsive app bar. Based on MUI documentation https://mui.com/material-ui/react-app-bar/
+//This gets rendered on every page of the app
+//Changes based on viewport width and whether user is logged in or not. Logged in user should see their profile image, their name in a welcome text instead of "login" and "register" buttons
+//When viewport is narrow (on mobile), changes the navigation menu to a hamburger menu.
 function ResponsiveAppBar({jwt, setJwt}) {
   if(jwt){
     if((jwt_decode(jwt).exp)<Math.ceil(new Date().getTime()/1000)){
@@ -109,9 +115,6 @@ function ResponsiveAppBar({jwt, setJwt}) {
                       <Typography sx={{fontSize: "0.8rem"}}  textAlign="center">{"All questions"}</Typography>
                     </MenuItem>
                     </Link>
-                    <MenuItem key="About" onClick={handleCloseNavMenu}>
-                      <Typography sx={{fontSize: "0.8rem"}} textAlign="center">{"About"}</Typography>
-                    </MenuItem>
                 </Menu>
               </Box>
 
