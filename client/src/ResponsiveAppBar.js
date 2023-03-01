@@ -41,7 +41,6 @@ function handleProfile(jwt){
 function ResponsiveAppBar({jwt, setJwt}) {
   if(jwt){
     if((jwt_decode(jwt).exp)<Math.ceil(new Date().getTime()/1000)){
-      console.log("expired");
       setJwt(null)
       window.localStorage.clear()
     }
