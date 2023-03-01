@@ -34,13 +34,13 @@ To run development server, use command "npm run dev"
 You can also run the backend and frontend separately in different 
 terminals with commands "npm run server" and "npm run client"
 
-Code highlighting can be done in posts and comments by using <code> </code> tags. 
+Code highlighting can be done in posts and comments by using \<code> \</code> tags. 
 
 Example: 
                 My code looks like this:
-                <code>function foo (bar){
+                \<code>function foo (bar){
                   return(bar)
-                }</code>
+                }\</code>
                 What do you guys think?
 
 Result:
