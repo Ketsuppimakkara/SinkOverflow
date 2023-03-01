@@ -118,47 +118,49 @@ function PostCard (props){
     }
     return(
       <Card className='PostCard' sx={{mt: 4,mb: 2, bgcolor: 'primary.background', boxShadow: 3}}>
-        <Grid container alignItems={'center'}>
-          <Grid item xs={2} md={1}>
-            <Stack direction="column" spacing={2} ml={1}>
-                <Box textAlign={'center'} onClick={()=>{handleUpvote(props.post.postId,props.jwt,setScore)}} >
-                  <ArrowUpward/>
-                </Box> 
-                <Box textAlign={'center'}>
-                  <Typography>{score}</Typography> 
-                </Box>
-                <Box textAlign={'center'} onClick={()=>{handleDownvote(props.post.postId,props.jwt,setScore)}} >
-                  <ArrowDownward/>
-                </Box> 
-            </Stack>
-          </Grid>
-          <Grid item xs={10} md={11}>
-          <CardContent sx={{margin: 1, mt: 1}}>
-                <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
-                  <Typography variant={'h1'} sx={{ my:2, fontSize: {xs: "1.0rem", md:"1.6rem"} ,textAlign: "left"}} color="text.primary">
-                    {props.post.title}
-                  </Typography>
-                </Link>
-                <Typography variant={'string'} sx={{fontSize:"0.6rem", mt:5, mb: 5, textAlign: "left"}} color="text.primary">
-                  <FormattedText text = {props.post.content} fontSizexs = "0.6rem" fontSizemd = "0.8rem"></FormattedText>
-                </Typography>
-                <div display="flex" style={{maxWidth:"90%"}}>
-                <Grid container spacing={4} alignItems="center">
-                  <Grid item xs={7} md={10} key='1'>
-                    <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
-                    Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)} {editTime}
+        <Stack>
+          <Grid container alignItems={'center'}>
+            <Grid item xs={2} md={1}>
+              <Stack direction="column" spacing={2} ml={1}>
+                  <Box textAlign={'center'} onClick={()=>{handleUpvote(props.post.postId,props.jwt,setScore)}} >
+                    <ArrowUpward/>
+                  </Box> 
+                  <Box textAlign={'center'}>
+                    <Typography>{score}</Typography> 
+                  </Box>
+                  <Box textAlign={'center'} onClick={()=>{handleDownvote(props.post.postId,props.jwt,setScore)}} >
+                    <ArrowDownward/>
+                  </Box> 
+              </Stack>
+            </Grid>
+            <Grid item xs={10} md={11}>
+            <CardContent sx={{margin: 1, mt: 1}}>
+                  <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
+                    <Typography variant={'h1'} sx={{ my:2, fontSize: {xs: "1.0rem", md:"1.6rem"} ,textAlign: "left"}} color="text.primary">
+                      {props.post.title}
                     </Typography>
-                  </Grid>
-                  <Grid item xs={5} md={2} key='2'>
-                    <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
-                      <Button color='secondary' size="small" variant='outlined' sx={{fontSize:{xs:"0.4rem",md:"0.6rem"}}}>Comments</Button>       
-                    </Link>
-                  </Grid>
-                </Grid>
-                </div>
-              </CardContent>
+                  </Link>
+                  <Typography variant={'string'} sx={{fontSize:"0.6rem", mt:5, mb: 5, textAlign: "left"}} color="text.primary">
+                    <FormattedText text = {props.post.content} fontSizexs = "0.6rem" fontSizemd = "0.8rem"></FormattedText>
+                  </Typography>
+                </CardContent>
+            </Grid>
           </Grid>
-        </Grid>
+          <div display="flex">
+                  <Grid container sx={{mb:2}} spacing={4} alignItems="center">
+                    <Grid item xs={7.5} md={10} key='1'>
+                      <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
+                      Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)} {editTime}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={4.5} md={2} key='2'>
+                      <Link href={"http://localhost:3000/post/"+props.post.postId} sx={{textDecoration: 'none'}}>
+                        <Button color='secondary' size="small" variant='outlined' sx={{fontSize:{xs:"0.4rem",md:"0.6rem"}}}>Comments</Button>       
+                      </Link>
+                    </Grid>
+                  </Grid>
+          </div>
+        </Stack>
       </Card>
   )
   }
@@ -177,7 +179,7 @@ function PostCard (props){
       </Typography>
       <Grid container alignItems="center">
         <Grid item xs={12} key='1'>
-          <Typography sx={{m:1, fontSize: "0.6rem", textAlign: "right"}}  color="text.secondary">
+          <Typography sx={{m:1, fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
           Asked by {props.post.author} {hoursAgo(props.post.created_at)} {editTime}
           </Typography>
           <>{editButton}</>
