@@ -146,9 +146,9 @@ function PostCard (props){
             </Grid>
           </Grid>
           <div display="flex">
-                  <Grid container sx={{mb:2}} spacing={4} alignItems="center">
+                  <Grid container sx={{mb:2}} alignItems="center">
                     <Grid item xs={7.5} md={10} key='1'>
-                      <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, textAlign: "right"}}  color="text.secondary">
+                      <Typography sx={{fontSize: {xs: '0.5rem', md:'0.6rem'}, mx:2, textAlign: "right"}}  color="text.secondary">
                       Asked by {<Link className='profileLink' sx={{color:"#ffffff",textDecorationColor:"#ffffff"}} href={'http://localhost:3000/profile/'+props.post.userId}>{props.post.author}</Link>} {hoursAgo(props.post.created_at)} {editTime}
                       </Typography>
                     </Grid>
