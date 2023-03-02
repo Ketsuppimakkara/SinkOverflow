@@ -26,6 +26,14 @@ Frontend:
 * Code highlighting syntax for posts and comments
 * Timestamp of post creation visible
             
+Installation:
+
+* Make sure you have Nodejs and npm installed. Developed on Node.js version 19.6.0 and React version 18.2.0
+* Install dependencies by using the npm script “npm run setup” on the root directory. 
+* After dependencies are installed, run development server with command "npm run dev".
+
+If you wish, you can run backend and frontend in separate terminals with commands "npm run server" and "npm run client"
+
           
 Usage:
 Make sure you have React and NPM installed
